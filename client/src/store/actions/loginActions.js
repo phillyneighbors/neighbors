@@ -28,6 +28,7 @@ export const submitLocation = (lat, lng) => {
   console.log("lat, lng ", lat, lng)
   return dispatch => {
     // googlePlaces.getNeighborhood for outside of philly -- we'll add cities as we go
+    console.log("in here")
     googlePlaces.getNeighborhood(lat, lng)
     .then(result => {
       console.log("RESULT IN ACTION: ",result)
@@ -36,6 +37,7 @@ export const submitLocation = (lat, lng) => {
       dispatch(foundNeighborhood(neighborhood, locationId, lat, lng))
     })
     .catch(err => {
+      console.log("error getting neighborhood name")
       console.log(err)
     });
   };

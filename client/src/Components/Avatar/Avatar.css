@@ -1,14 +1,18 @@
-.NavImage {
+.NavContext {
+  display: flex;
   margin-right: 90px;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
 }
 
-.ChatImage {
-
+.ChatContext {
+  display: flex;
+  align-items: center;
+  font-size: 1.5em;
+  color: #1f89e0;
 }
 
 .Username {
-  margin-top: 2px;
-  font-size: .8em;
+  margin-left: 2px;
+  font-size: .5em;
 }

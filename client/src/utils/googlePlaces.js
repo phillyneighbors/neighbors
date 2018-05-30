@@ -9,10 +9,11 @@ export default {
   // this isn't working becuase of cross-origin requests
   getNeighborhood: (lat, lng) => {
     return new Promise((resolve, reject) => {
+      console.log(lat, lng)
       axios.get(corsApiUrl + baseUrl, {
         params: {
           location: [lat, lng].join(","),
-          type: 'neighborhood',
+          type: 'neighborhood, political', // this seems to not work outside of philly
           radius: 1000,
           key: process.env.REACT_APP_PLACES_KEY,
         }
@@ -20,8 +21,12 @@ export default {
       .then((response) => {
         // check to see if this location already exists in the database
         // and if it doesn't create a new entry
+        console.log("success")
         const data = response.data.results;
+        console.log(response)
+        console.log(data)
         const name = data[data.length - 1].name;
+        console.log(name)
         axios.get('/api/location', {neighborhood: name})
         .then(response => {
           console.log("LOCATION RESPONSE: ", response)

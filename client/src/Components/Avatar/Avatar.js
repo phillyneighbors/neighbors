@@ -1,9 +1,9 @@
 import React from 'react';
 import classes from './Avatar.css'
 const avatar = (props) => {
-  let contextClass = classes.NavImage;
+  let contextClass = classes.NavContext;
   if (props.context === 'chat') {
-    contextClass = classes.ChatImage;
+    contextClass = classes.ChatContext;
   }
   return (
     <div className={contextClass}>

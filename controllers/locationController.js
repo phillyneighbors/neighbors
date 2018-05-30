@@ -3,7 +3,7 @@ module.exports = {
   get: (param) => {
     return new Promise((resolve, reject) => {
       console.log("in location controller")
-      db.Location.findAll(param)
+      db.Location.find(param)
       .then((locations, err) => {
         console.log("IN here")
         console.log(locations)
