@@ -7,6 +7,11 @@ Project setup following [this guide](https://daveceddia.com/create-react-app-exp
 1. `$ nodemon`
 1. Open a new terminal and `$ cd client`
 1. `$ npm start`
+
+## Deployment to heroku
+1. `$ git checkout production`
+1. `$ git push heroku production`
+
 ### Database setup
 1. in the root directory create a .env file and intialize a variable called `MONGO_URI`
 1. create a mongo database in your local environment and point the MONGO_URI to it
@@ -33,6 +38,7 @@ information in a database as there was no viable API to fetch this information.
 The [philly-hoods](http://phillyhoods.net/) API has been down for some time, but
 they do have a JSON file in their repo with the necessary coordinates. The problem
 is that the data is structured like this...
+
 `"name" : "Washington Square West",
         "totalStreets" : 0,
         "geometry" : {
@@ -52,6 +58,7 @@ The server structure is as follows:
   is by passing the resource name in the request. The API route then calls the
   appropriate controller based on the resource name
   1. For example, a basic get route looks like this:
+
   `router.get('/:resource', function(req, res, next){
   	var resource = req.params.resource;
   	var controller = controllers[resource];
