@@ -1,3 +1,10 @@
+/* .navbar .navbar-default {
+  background-color: #f46242 !important
+} */
+
+.navbar-fixed-top .navbar-home {
+  background-color: #f46242 !important
+}
 .NavBar {
   display: flex;
   justify-content: space-between;
@@ -19,6 +26,26 @@
   font-size: 1.5em;
   margin: 0 0 0 30px;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: black;
-  /* align-self: flex-end; */
+  -webkit-text-stroke-color: black
 }
+
+
+
+@media only screen and (max-width: 600px) {
+  .Title {
+    text-align: center;
+    vertical-align: middle;
+    letter-spacing: .08em;
+    font-size: .6em;
+    margin: 0 0 0 30px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black
+  }
+
+  .headerImage {
+    width:50%
+  }
+}
+
+  /* align-self: flex-end; */
+ 

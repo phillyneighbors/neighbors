@@ -5,12 +5,16 @@ import Avatar from '../Avatar/Avatar'
 const Navbar = (props) => {
 
   return (
+
     <div className={classes.NavBar}>
-      <h1 className={classes.Title}><img src={image} height="100px" /> neighbors</h1>
-      <div className={classes.Profile}>
-        <Avatar context='navbar' username={props.username}/>
-      </div>
-    </div>
+    
+    <div className={classes.headerImage}> <img src={image} height="100px" /></div> <h1 className={classes.Title}> neighbors</h1> 
+        <div className={classes.Profile}>
+          <Avatar context='navbar' username={props.username}/>
+            </div>
+       </div>
+
+
   )
 }
 

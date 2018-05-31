@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classes from './ChatRoom.css';
 import ChatBox from './ChatBox/ChatBox';
-import Aux from '../../Components/HOC/Auxil'
+import Aux from '../../Components/HOC/Auxil';
 import MapContainer from '../../Components/Map/Map';
 import { connect } from 'react-redux';
 import placesApi from '../../utils/googlePlaces';

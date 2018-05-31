@@ -66,7 +66,11 @@ class ChatBox extends Component {
       })
     }
     return (
+      
       <div className={classes.ChatBox}>
+      <br />
+      <br />
+
         <div className={classes.Window}>
           <WindowHeader >{this.props.location} Chat</WindowHeader>
           {messages}

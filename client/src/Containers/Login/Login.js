@@ -19,6 +19,8 @@ class Login extends Component {
   }
   render() {
     return (
+      <div className="container">
+      <div className="row">
       <div className={classes.LoginForm}>
         <WindowHeader position="center">Login/SignUp</WindowHeader>
         <form className={classes.Form}>
@@ -34,6 +36,9 @@ class Login extends Component {
         </form>
         <Button clicked={this.props.login}>Log In</Button>
       </div>
+      </div>
+      </div>
+      
     )
   };
 }
