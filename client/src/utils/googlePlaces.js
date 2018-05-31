@@ -1,7 +1,6 @@
 import axios from 'axios';
 // import hoods from 'philly-hoods'; -- not working
 const baseUrl = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json';
-const phillyBaseUrl = 'http://api.phillyhoods.net/v1/locations/'
 const corsApiUrl = 'https://cors-anywhere.herokuapp.com/';
 
 require('dotenv').config();
