@@ -14,14 +14,14 @@ export class MapContainer extends Component  {
     }
     // we want to offeset the map a little bit so the outlined neighborhood
     // fits nicely next to the chatbox
-    const offSetLat = this.props.lat + .004;
-    const offSetLng = this.props.lng - .008;
+    // const offSetLat = this.props.lat + .004;
+    // const offSetLng = this.props.lng - .008;
     return (
         <Map
           id="map"
           google={this.props.google}
           className={classes.MapContainer}
-          initialCenter={{lat: offSetLat - .0001,lng: offSetLng}}
+          initialCenter={{lat: this.props.lat,lng: this.props.lng}}
           zoom={15}
           styles={mapStyles}
           onClick={this.onMapClicked}>

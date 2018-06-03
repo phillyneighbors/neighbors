@@ -12,9 +12,9 @@ class ChatBox extends Component {
   }
 
   componentDidMount() {
+
     api.getMessages(this.props.locationId)
     .then(response => {
-      console.log("chat history: ", chatHistory)
       let chatHistory = response.map(message => {
         // convert createdAT date to human readable date
         let createdAt = moment(message.createdAt).format("ddd, MMM Do hh:mm a")
@@ -39,7 +39,8 @@ class ChatBox extends Component {
       updatedChatHistory = [...this.state.chatHistory];
     }
     const newMessage = {text: this.state.message, UserId: this.props.userId, LocationId: this.props.locationId}
-    const displayMessage = {text: this.state.message, user: this.props.user, date: Date.now()}
+    const date = moment().format("ddd, MMM Do hh:mm a");
+    const displayMessage = {text: this.state.message, user: this.props.user, date: date};
     updatedChatHistory.push(displayMessage)
     // post to db
     api.postMessage(newMessage)
@@ -66,7 +67,7 @@ class ChatBox extends Component {
       })
     }
     return (
-      
+
       <div className={classes.ChatBox}>
       <br />
       <br />
