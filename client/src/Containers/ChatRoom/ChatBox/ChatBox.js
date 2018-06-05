@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import socket from '../../../utils/socket'
 import classes from './ChatBox.css';
 import Button from '../../../Components/UI/Button/Button';
 import api from '../../../utils/apiRequests';
@@ -9,10 +10,11 @@ class ChatBox extends Component {
   state = {
     chatHistory: [],
     message: '',
+    client: socket()
   }
 
   componentDidMount() {
-
+    this.state.client.join(this.props.location);
     api.getMessages(this.props.locationId)
     .then(response => {
       let chatHistory = response.map(message => {
