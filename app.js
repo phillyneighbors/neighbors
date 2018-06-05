@@ -14,11 +14,11 @@ require('dotenv').config();
 // var PORT = process.env.PORT || 8080;
 
 // connect to mySql db
-// db.sequelize.sync({ force: false }).then(function() {
-//   app.listen(PORT, function() {
-//     console.log("App listening on PORT " + PORT);
-//   });
-// });
+db.sequelize.sync({ force: false }).then(function() {
+  app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
+});
 
 // connect to mongoDb for philly-hoods data
 // their api was down so I copied their database
@@ -29,10 +29,6 @@ mongoose.connect(process.env.MONGO_URI, (err, res) => {
   else{
     console.log('DB CONNECTION SUCCESS')
   }
-<<<<<<< HEAD
-});
-
-=======
 })
 // serve react files
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -42,7 +38,6 @@ app.get('*', (req, res) => {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
->>>>>>> 70afc7f018fadd8090eccefbe594f05b6acd8982
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
