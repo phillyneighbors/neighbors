@@ -1,14 +1,13 @@
 // A completely modular api route
 // this route imports our controllers and then grabs the appropriate one
-// based on the resource variable in the route
-// because we're not hardcoding any of the routes this api route can be used to
+// based on the resource variable in the route.
+// Because we're not hardcoding any of the routes this api route can be used to
 // fetch our neighborhood zones, chat histories, and users by referreing to those controllers
 // Additionaly, this route file can be resued in any other project
 const express = require('express')
 const router = express.Router()
 const controllers = require('../controllers')
 
-// axios.get('/api/message')
 router.get('/:resource', function(req, res, next){
 	var resource = req.params.resource;
 	var controller = controllers[resource];

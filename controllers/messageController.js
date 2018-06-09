@@ -4,26 +4,20 @@ module.exports = {
   get: (locationId) => {
     return new Promise((resolve, reject) => {
       console.log("in message controller")
-      db.Message.findAll({
-        where: locationId,
-        order: [['createdAt', 'ASC']],
-        include: [db.User]
+      db.Message.findAll({'$where': {location: locationId}})
+      .then(messages => {
+        resolve(messages)
       })
-      .then((messages, err) => {
-        console.log("IN here")
-        console.log(messages)
-        if (messages){
-          return resolve(messages);
-        }
-        reject(err)
+      .catch(err => {
+        reject(err);
       });
-    })
+    });
   },
 
-  post: (message) => {
+  post: (message, location) => {
     console.log(message)
     return new Promise((resolve, reject) => {
-      db.Message.create(message,)
+      db.Message.create({text: message, location: location})
       .then((message) => {
         console.log("posted from backend!")
         resolve(message)

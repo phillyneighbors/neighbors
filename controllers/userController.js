@@ -5,13 +5,13 @@ module.exports = {
     return new Promise((resolve, reject) => {
       console.log("in controller")
       db.User.findAll({})
-      .then((users, err) => {
+      .then(users => {
         console.log("no error")
         console.log(users)
-        if (users){
-          return resolve(users);
-        }
-        reject(err)
+        resolve(users);
+      })
+      .catch(err => {
+        reject(err);
       });
     });
   },
@@ -21,21 +21,20 @@ module.exports = {
       console.log("Logging in")
       console.log(params)
       // check to see if the username exists
-      db.User.findOne({where: {name: params.username}})
-      .then((user, err) => {
-        if (err) {
-          return reject(err)
-        }
+      db.User.find({$where: {username: params.username}})
+      .then(user => {
         // if the user is null create this user
-        else if (user === null) {
+        if (user === null) {
           console.log("user does not exit")
           db.User.create({
-            name: params.username,
+            username: params.username,
             password: params.password,
-            location: params.location
           })
-          .then((user, err) => {
-            return resolve({confirmation: "created new user", user: user});
+          .then(user => {
+            resolve({confirmation: "created new user", user: user});
+          })
+          .catch(err => {
+            reject(err);
           })
         }
         else {
@@ -46,9 +45,19 @@ module.exports = {
             return resolve({confirmation: "logged in", user: user});
           }
           else {
-            return resolve({confirmation: "incorrect password"})
+            reject({confirmation: "incorrect password"})
           }
         }
+      })
+      .catch(err => {
+        // This username is new so let's create a new user
+        db.User.create(params)
+        .then(user => {
+          resolve(user)
+        })
+        .catch(err => {
+          reject(err);
+        })
       })
     });
   }
