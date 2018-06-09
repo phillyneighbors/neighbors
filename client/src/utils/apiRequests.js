@@ -37,7 +37,7 @@ export default {
         password,
       })
       .then(response => {
-        console.log(response)
+        console.log("FRONTEND RESPONSE: ", response)
         resolve(response)
       })
       .catch(err => {

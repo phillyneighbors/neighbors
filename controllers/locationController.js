@@ -2,12 +2,9 @@ const db = require('../models')
 module.exports = {
   get: (param) => {
     return new Promise((resolve, reject) => {
-      console.log("in location controller")
       db.Location.find(param)
       .then((locations, err) => {
-        console.log("IN here")
-        console.log(locations)
-        if (locations){
+        if (locations[0]){
           return resolve(locations[0]);
         }
         reject(err)

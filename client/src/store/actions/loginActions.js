@@ -60,10 +60,10 @@ export const userLogin = () => {
   return (dispatch, getState) => {
     const username = getState().loginReducer.username;
     const password = getState().loginReducer.password;
-    const location = getState().loginReducer.location;
-    api.userLogin(username, password, location)
+    api.userLogin(username, password)
     .then(response => {
-      dispatch(userAuthenticated(response.data.result.user.id))
+      console.log(response)
+      dispatch(userAuthenticated(response.data.result._id))
     })
   };
 };

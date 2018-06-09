@@ -19,19 +19,22 @@ router.get('/:resource', function(req, res, next){
 	}
 	controller.get(req.query)
 	.then(function(results){
+    console.log(results)
 		res.json({
 	    confirmation: 'success',
 	    results: results
 	  })
 	})
 	.catch(function(err){
-		res.json({
+    console.log("ERROR")
+		res.status(404).json({
 			confirmation: 'fail',
 			errorMessage: err
 		})
 	})
 })
 router.get('/:resource/:id', function(req, res, next){
+  console.log("ARE WE IN HERE?")
 	var resource = req.params.resource
 	var id = req.params.id
 	var controller  = controllers[resource]

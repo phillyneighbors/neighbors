@@ -20,39 +20,32 @@ export default {
       .then((response) => {
         // check to see if this location already exists in the database
         // and if it doesn't create a new entry
-        console.log("success")
         const data = response.data.results;
-        console.log(response)
-        console.log(data)
         const name = data[data.length - 1].name;
         console.log(name)
-        axios.get('/api/location', {neighborhood: name})
+        axios.get('/api/location', {params: {neighborhood: name}})
         .then(response => {
-          console.log("LOCATION RESPONSE: ", response)
-          if (response.data.results) {
-            console.log("NOT POSTING")
             // this location already exists
-            console.log(response.data.results)
+            console.log("the location already exiss")
+            console.log(response);
             return resolve(response.data.results);
-          }
-          else{
-            axios.post('/api/location', {neighborhood: name})
-            .then(response => {
-              console.log("FRONTEND LOCATION response: ", response)
-              console.log(name)
-              resolve(name)
-            })
-            .catch(err => {
-              reject(err)
-            })
-          }
         })
         .catch(err => {
-          reject(err);
+          console.log("THAT LOCATION DOES NOT EXIST YET")
+          axios.post('/api/location', {neighborhood: name})
+          .then(response => {
+            console.log("FRONTEND LOCATION response: ", response)
+            console.log(name)
+            resolve(name)
+          })
+          .catch(err => {
+            console.log("UNABLE TO POST NEW LOCATION")
+            reject(err)
+          })
         })
       })
-      .catch((error) => {
-        reject(error)
+      .catch(err => {
+        reject(err)
       });
     });
   },

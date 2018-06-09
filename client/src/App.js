@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from './App.css';
 import Layout from './Containers/Layout/Layout';
 import { BrowserRouter } from 'react-router-dom';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
@@ -17,9 +16,7 @@ const rootReducer = combineReducers({
 const logger = store => {
   return next => {
     return action => {
-      console.log('[Middleware] Dispatching', action);
       const result = next(action);
-      console.log('[Middleware] next state', store.getState());
       return result;
     }
   }
