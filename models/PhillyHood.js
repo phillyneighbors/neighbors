@@ -1,5 +1,5 @@
-var mongoose = require('mongoose')
-var Hood = new mongoose.Schema({
+const mongoose = require('mongoose')
+const Hood = new mongoose.Schema({
   type: {type:String, trim:true, lowercase:true, default:''},
   properties: {
     name: {type: String},

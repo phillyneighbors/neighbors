@@ -13,13 +13,6 @@ var app = express();
 require('dotenv').config();
 // var PORT = process.env.PORT || 8080;
 
-// connect to mySql db
-db.sequelize.sync({ force: false }).then(function() {
-  app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
-  });
-});
-
 // connect to mongoDb for philly-hoods data
 // their api was down so I copied their database
 mongoose.connect(process.env.MONGO_URI, (err, res) => {

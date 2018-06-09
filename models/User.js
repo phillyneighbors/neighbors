@@ -1,28 +1,7 @@
+const mongoose = require('mongoose');
+const User = new mongoose.Schema({
+  username: {type: String, required: true},
+  password: {type: ObjectId, ref: 'User'},
+})
 
-module.exports = function(sequelize, DataTypes) {
-  var User = sequelize.define("User", {
-    // Giving the User model a name of type STRING
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true
-    },
-    name: {
-      type: DataTypes.STRING
-    },
-    password: {
-      type: DataTypes.STRING
-    },
-  });
-
-  User.associate = function(models) {
-    // Associating User with message
-    // When an User is deleted, also delete any associated messages
-    User.hasMany(models.Message, {
-      onDelete: "cascade"
-    });
-  };
-
-
-  return User;
-};
+module.exports = mongoose.model('User', User);
