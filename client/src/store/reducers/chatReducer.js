@@ -1,9 +1,12 @@
 import * as actionTypes from '../actions/chatActions'
 
 const initialState = {
-  username: '',
   message: '',
-  chatHisory: []
+  chat: [],
+  neighborhood: '',
+  lat: '',
+  lng: '',
+  geometry: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -21,7 +24,11 @@ const reducer = (state = initialState, action) => {
     case actionTypes.GET_LOCATION:
       return {
         ...state,
-        location: action.location
+        location: action.neighborhood,
+        lat: action.lat,
+        lng: action.lng,
+        chat: action.chat,
+        geometry: action.geometry
       }
     default:
       return state

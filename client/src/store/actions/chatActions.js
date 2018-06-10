@@ -27,7 +27,7 @@ export const getLocation = (lat, lng) => {
     console.log("in here")
     googlePlaces.getNeighborhood(lat, lng)
     .then(result => {
-      dispatch(submitLocation(result));
+      dispatch(submitLocation(result, lat, lng));
     })
     .catch(err => {
       console.log("error getting neighborhood name")
@@ -36,9 +36,13 @@ export const getLocation = (lat, lng) => {
   };
 };
 
-export const submitLocation = (location) => {
+export const submitLocation = (location, lat, lng) => {
   return {
     type: GET_LOCATION,
-    location,
+    neighborhood: location.neighborhood,
+    lat,
+    lng,
+    geometry: location.geometry,
+    messages: location.chat
   };
 }

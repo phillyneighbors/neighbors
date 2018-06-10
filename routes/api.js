@@ -10,8 +10,6 @@ const controllers = require('../controllers')
 
 router.get('/:resource', function(req, res, next){
 	var resource = req.params.resource;
-  console.log("MAKING GET for: ", resource);
-  console.log(req.query);
 	var controller = controllers[resource];
 	if (controller == null){
 		res.json({
@@ -21,7 +19,6 @@ router.get('/:resource', function(req, res, next){
 	}
 	controller.get(req.query)
 	.then(function(results){
-    console.log("REsults: ",results)
 		res.json({
 	    confirmation: 'success',
 	    results: results
