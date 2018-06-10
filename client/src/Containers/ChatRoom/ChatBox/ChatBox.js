@@ -17,14 +17,17 @@ class ChatBox extends Component {
 
     this.socket = io('localhost:3001');
 
-    this.socket.on('RECEIVE_MESSAGE', function(data){
+  }
+  componentDidMount(){
+    socket = io.connect('http://localhost:3001');
+    this.socket.on('RECEIVE_MESSAGE', (data) => {
       console.log(data)
+      let newMessages = [...this.state.messages, data]
+      this.setState({
+        messages: newMessages
+      })
     });
   }
-  componentDidMount() {
-    socket = io.connect('http://localhost:3001');
-  }
-
   updateMessage = (event) => {
     let updatedMessage = event.target.value;
     this.setState({
@@ -43,17 +46,18 @@ class ChatBox extends Component {
     updatedChatHistory.push(displayMessage)
     // post to db
     console.log("SENDING MESSAGE")
-    socket.emit('SEND_MESSAGE', {message: newMessage}, () => {
+    socket.emit('SEND_MESSAGE', newMessage, () => {
       console.log("MESSAGE SENT");
     })
   }
 
   render() {
     let messages = []
-    if (this.state.chatHistory) {
-      messages = this.state.chatHistory.map(message => {
+    if (this.state.messages) {
+      messages = this.state.messages.map((message, i) => {
+        console.log(message)
         return (
-          <div className={classes.Message}>
+          <div key={i} className={classes.Message}>
             <Avatar context="chat" username={message.user}/>
             <span className={classes.MessageText}>{message.text}</span>
             <div className={classes.TimeStamp}>({message.date})</div>
