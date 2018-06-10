@@ -4,14 +4,14 @@ import ChatBox from './ChatBox/ChatBox';
 import Aux from '../../Components/HOC/Auxil';
 import MapContainer from '../../Components/Map/Map';
 import { connect } from 'react-redux';
-import placesApi from '../../utils/googlePlaces';
+import api from '../../utils/apiRequests';
 
 class ChatRoom extends Component {
   state = {
     hoodCoords: []
   }
   componentDidMount() {
-    placesApi.getHoodCoords(this.props.location)
+    api.getHoodCoords(this.props.location)
     .then(coords => {
       console.log(coords)
       this.setState({hoodCoords: coords[0]})

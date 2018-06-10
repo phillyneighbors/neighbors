@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 const Hood = new mongoose.Schema({
   type: {type:String, trim:true, lowercase:true, default:''},
   properties: {
@@ -11,10 +12,13 @@ const Hood = new mongoose.Schema({
     created_at: {type: Date},
     updated_at: {type: Date}
   },
+  chat: {
+    messages: [{type: ObjectId, ref: 'message'}]
+  },
   geometry: {
     type: {type: String},
     coordinates: {type: Array}
   }
-})
+});
 
-module.exports = mongoose.model('Hood', Hood)
+module.exports = mongoose.model('Hood', Hood);

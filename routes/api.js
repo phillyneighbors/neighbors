@@ -10,6 +10,8 @@ const controllers = require('../controllers')
 
 router.get('/:resource', function(req, res, next){
 	var resource = req.params.resource;
+  console.log("MAKING GET for: ", resource);
+  console.log(req.query);
 	var controller = controllers[resource];
 	if (controller == null){
 		res.json({
@@ -34,7 +36,6 @@ router.get('/:resource', function(req, res, next){
 	})
 })
 router.get('/:resource/:id', function(req, res, next){
-  console.log("ARE WE IN HERE?")
 	var resource = req.params.resource
 	var id = req.params.id
 	var controller  = controllers[resource]

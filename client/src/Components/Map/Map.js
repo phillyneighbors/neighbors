@@ -11,6 +11,7 @@ export class MapContainer extends Component  {
       pathCoords = this.props.hoodCoords.map((coordSet) => (
         {lat: coordSet[1], lng: coordSet[0]}
       ))
+      console.log("PATHCOORDS: ",pathCoords);
     }
     // we want to offeset the map a little bit so the outlined neighborhood
     // fits nicely next to the chatbox

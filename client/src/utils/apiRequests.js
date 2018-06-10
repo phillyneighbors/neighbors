@@ -45,5 +45,23 @@ export default {
         reject(err)
       })
     })
+  },
+  getHoodCoords: (name) => {
+    return new Promise((resolve, reject) => {
+      axios.get('/api/phillyHood', {
+        params: {
+          mapname: name,
+        }
+      })
+      .then(response => {
+        console.log("RESPON: ",response.data)
+        resolve(response.data.results)
+      })
+      .catch(err => {
+        console.log("ERR: ", err)
+        reject(err)
+      })
+
+    })
   }
 }

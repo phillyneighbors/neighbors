@@ -32,7 +32,7 @@ export const submitLocation = (lat, lng) => {
     googlePlaces.getNeighborhood(lat, lng)
     .then(result => {
       console.log("RESULT IN ACTION: ",result)
-      const neighborhood = result.neighborhood;
+      const neighborhood = result.properties.mapname;
       const locationId = result.id;
       dispatch(foundNeighborhood(neighborhood, locationId, lat, lng))
     })
