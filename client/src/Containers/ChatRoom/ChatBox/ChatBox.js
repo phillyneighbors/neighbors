@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import socket from '../../../utils/socket'
 import classes from './ChatBox.css';
 import Button from '../../../Components/UI/Button/Button';
-import api from '../../../utils/apiRequests';
 import Avatar from '../../../Components/Avatar/Avatar';
 import WindowHeader from '../../../Components/UI/WindowHeader/WindowHeader';
+import io from 'socket.io-client';
+let socket;
 class ChatBox extends Component {
-  state = {
-    chatHistory: [],
-    message: '',
-    client: socket()
-  }
+  constructor(props){
+    super(props);
+    this.state = {
+        username: '',
+        message: '',
+        messages: []
+    };
 
+    this.socket = io('localhost:3001');
+
+    this.socket.on('RECEIVE_MESSAGE', function(data){
+      console.log(data)
+    });
+  }
   componentDidMount() {
-    console.log(this.props);
+    socket = io.connect('http://localhost:3001');
   }
 
   updateMessage = (event) => {
@@ -34,12 +42,9 @@ class ChatBox extends Component {
     const displayMessage = {text: this.state.message, user: this.props.user, date: date};
     updatedChatHistory.push(displayMessage)
     // post to db
-    api.postMessage(newMessage)
-    .then(response => {
-      this.setState({
-        message: '',
-        chatHistory: updatedChatHistory
-      })
+    console.log("SENDING MESSAGE")
+    socket.emit('SEND_MESSAGE', {message: newMessage}, () => {
+      console.log("MESSAGE SENT");
     })
   }
 

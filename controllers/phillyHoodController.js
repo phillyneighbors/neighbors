@@ -11,11 +11,9 @@ module.exports = {
       const hoodName = hoodNames[hoodNames.length - 1];
       // if there is more than one grab the last one -- google gives their
       // places results in order of least to most specific
-      console.log(hoodName)
       db.Hood.find({"properties.mapname": hoodName}, null)
       .exec((err, hood) => {
         if (err) {
-          console.log(err);
           return reject(err);
         }
         resolve(hood[0].summarize())

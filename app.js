@@ -1,4 +1,5 @@
 var express = require('express');
+var socket_io = require('socket.io');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -10,11 +11,20 @@ var api = require('./routes/api');
 var mongoose = require('mongoose')
 var db = require('./models');
 var app = express();
-require('dotenv').config();
-// var PORT = process.env.PORT || 8080;
+// socket setup
+var io = socket_io();
+app.io = io;
 
-// connect to mongoDb for philly-hoods data
-// their api was down so I copied their database
+// socket.io events
+io.on('connection', (socket) => {
+  console.log("as user connected: ", socket.id);
+  socket.on('SEND_MESSAGE', (data) => {
+    console.log("DATA IN SOCKET: ", data)
+    io.emit('RECEIVE_MESSAGE', data)
+  })
+})
+
+require('dotenv').config();
 mongoose.connect(process.env.MONGO_URI, (err, res) => {
   if (err){
     console.log('DB CONNECTION FAILED: '+err)
@@ -28,9 +38,7 @@ mongoose.connect(process.env.MONGO_URI, (err, res) => {
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 // });
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
