@@ -14,18 +14,7 @@ class ChatBox extends Component {
   }
 
   componentDidMount() {
-    this.state.client.join(this.props.location);
-    api.getMessages(this.props.locationId)
-    .then(response => {
-      let chatHistory = response.map(message => {
-        // convert createdAT date to human readable date
-        let createdAt = moment(message.createdAt).format("ddd, MMM Do hh:mm a")
-        return ({user: message.User.name, text: message.text, date: createdAt});
-      })
-      this.setState({
-        chatHistory,
-      })
-    })
+    console.log(this.props);
   }
 
   updateMessage = (event) => {
@@ -71,11 +60,11 @@ class ChatBox extends Component {
     return (
 
       <div className={classes.ChatBox}>
-      <br />
-      <br />
+        <br />
+        <br />
 
         <div className={classes.Window}>
-          <WindowHeader >{this.props.location} Chat</WindowHeader>
+          <WindowHeader >{this.props.neighborhood} Chat</WindowHeader>
           {messages}
         </div>
         <div id="chatControls" className={classes.ChatControls}>

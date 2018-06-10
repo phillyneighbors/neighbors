@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import classes from './ChatRoom.css';
 import ChatBox from './ChatBox/ChatBox';
 import Aux from '../../Components/HOC/Auxil';
 import MapContainer from '../../Components/Map/Map';
@@ -18,18 +17,17 @@ class ChatRoom extends Component {
     })
   }
 
-
   render() {
     return (
       <Aux>
         <MapContainer
-          location={this.props.location}
+          neighborhood={this.props.neighborhood}
           lat={this.props.lat}
           lng={this.props.lng}
-          hoodCoords={this.state.hoodCoords}
+          hoodCoords={this.props.geometry}
         />
         <ChatBox
-          location={this.props.location}
+          neighborhood={this.props.neighborhood}
           activeUser={this.props.username}
           locationId={this.props.locationId}
           userId={this.props.userId}
@@ -41,13 +39,14 @@ class ChatRoom extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  location: state.chatReducer.location.properties.mapname,
-  locationId: state.chatReducer.location._id,
+  neighborhood: state.chatReducer.neighborhood,
+  locationId: state.chatReducer.locationId,
   userId: state.loginReducer.userId,
-  geometry: state.chatReducer.location.geometry,
+  geometry: state.chatReducer.geometry,
   lat: state.chatReducer.lat,
   lng: state.chatReducer.lng,
-  username: state.chatReducer.username
+  username: state.loginReducer.username,
+  chat: state.chatReducer.chat
 });
 
 const mapDispatchToProps = dispatch => {

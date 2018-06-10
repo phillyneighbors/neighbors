@@ -6,7 +6,8 @@ const initialState = {
   neighborhood: '',
   lat: '',
   lng: '',
-  geometry: []
+  geometry: [],
+  locationId: ''
 }
 
 const reducer = (state = initialState, action) => {
@@ -24,11 +25,12 @@ const reducer = (state = initialState, action) => {
     case actionTypes.GET_LOCATION:
       return {
         ...state,
-        location: action.neighborhood,
+        neighborhood: action.neighborhood,
         lat: action.lat,
         lng: action.lng,
         chat: action.chat,
-        geometry: action.geometry
+        geometry: action.geometry,
+        locationId: action.locationId
       }
     default:
       return state

@@ -43,6 +43,7 @@ export const submitLocation = (location, lat, lng) => {
     lat,
     lng,
     geometry: location.geometry,
-    messages: location.chat
+    messages: location.chat,
+    locationId: location.id
   };
 }
