@@ -1,6 +1,8 @@
+import googlePlaces from '../../utils/googlePlaces' // consider just combining this with apiRequests
 // ACTION TYPES
 export const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
+export const GET_LOCATION = 'GET_LOCATION'
 
 // ACTION CREATORS
 // receives payload from an action -- in this case username
@@ -16,3 +18,27 @@ export const sendMessage = (message) => {
     message,
   };
 };
+
+// Async action to lookup neighborhood from geoCoords
+export const getLocation = (lat, lng) => {
+  console.log("lat, lng ", lat, lng)
+  return dispatch => {
+    // googlePlaces.getNeighborhood for outside of philly -- we'll add cities as we go
+    console.log("in here")
+    googlePlaces.getNeighborhood(lat, lng)
+    .then(result => {
+      dispatch(submitLocation(result));
+    })
+    .catch(err => {
+      console.log("error getting neighborhood name")
+      console.log(err)
+    });
+  };
+};
+
+export const submitLocation = (location) => {
+  return {
+    type: GET_LOCATION,
+    location,
+  };
+}

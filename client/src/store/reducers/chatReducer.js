@@ -18,6 +18,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         password: action.message
       };
+    case actionTypes.GET_LOCATION:
+      return {
+        ...state,
+        location: action.location
+      }
     default:
       return state
   }

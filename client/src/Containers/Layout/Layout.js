@@ -4,7 +4,7 @@ import ChatRoom from '../ChatRoom/ChatRoom';
 import NavBar from '../../Components/Navigation/Navigation';
 import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as actionCreators from '../../store/actions/loginActions'
+import * as actionCreators from '../../store/actions/chatActions'
 import classes from './layout.css';
 import backgroundImage from './assets/images/neighbors-2.jpg';
 class Layout extends Component {
@@ -56,7 +56,7 @@ class Layout extends Component {
 // store
 const mapStateToProps = state => {
   return {
-    location: state.loginReducer.location,
+    location: state.chatReducer.location,
     username: state.loginReducer.username,
     loggedIn: state.loginReducer.loggedIn
   }
@@ -65,7 +65,7 @@ const mapStateToProps = state => {
 // dispatching actions
 const mapDispatchToProps = dispatch => {
   return {
-    submitLocation: (lat, lng) => dispatch(actionCreators.submitLocation(lat, lng))
+    submitLocation: (lat, lng) => dispatch(actionCreators.getLocation(lat, lng))
   }
 }
 

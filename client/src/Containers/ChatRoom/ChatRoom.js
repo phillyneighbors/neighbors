@@ -41,12 +41,13 @@ class ChatRoom extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  location: state.loginReducer.location,
-  locationId: state.loginReducer.locationId,
+  location: state.chatReducer.location.properties.mapname,
+  locationId: state.chatReducer.location._id,
   userId: state.loginReducer.userId,
-  lat: state.loginReducer.lat,
-  lng: state.loginReducer.lng,
-  username: state.loginReducer.username
+  geometry: state.chatReducer.location.geometry,
+  lat: state.chatReducer.lat,
+  lng: state.chatReducer.lng,
+  username: state.chatReducer.username
 });
 
 const mapDispatchToProps = dispatch => {

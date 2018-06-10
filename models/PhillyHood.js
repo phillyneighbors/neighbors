@@ -21,4 +21,14 @@ const Hood = new mongoose.Schema({
   }
 });
 
+Hood.methods.summarize = function(){
+  console.log("METHOD CALLED")
+  const hood = {
+    neighborhood: this.properties.mapname,
+    chat: this.chat,
+    geometry: this.geometry.coordinates[0][0]
+  }
+  return hood;
+}
+
 module.exports = mongoose.model('Hood', Hood);
