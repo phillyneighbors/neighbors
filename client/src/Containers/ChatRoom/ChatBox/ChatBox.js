@@ -14,12 +14,16 @@ class ChatBox extends Component {
         message: '',
         messages: []
     };
-
+    // what does this need to be set to for production
     this.socket = io('localhost:3001');
 
   }
   componentDidMount(){
     socket = io.connect('http://localhost:3001');
+    // join a chat room for this location
+    this.socket.on('connect', () => {
+      this.socket.emit('ROOM', "conshy");
+    })
     this.socket.on('RECEIVE_MESSAGE', (data) => {
       console.log(data)
       let newMessages = [...this.state.messages, data]
@@ -46,7 +50,7 @@ class ChatBox extends Component {
     updatedChatHistory.push(displayMessage)
     // post to db
     console.log("SENDING MESSAGE")
-    socket.emit('SEND_MESSAGE', newMessage, () => {
+    this.socket.emit('SEND_MESSAGE', {room: 'conshy', newMessage: newMessage}, () => {
       console.log("MESSAGE SENT");
     })
   }

@@ -16,7 +16,10 @@ module.exports = {
         if (err) {
           return reject(err);
         }
-        resolve(hood[0].summarize())
+        if (hood[0]){
+          hood = hood[0].summarize();
+        }
+        resolve(hood)
       })
     })
   },

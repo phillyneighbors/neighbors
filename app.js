@@ -16,13 +16,18 @@ var io = socket_io();
 app.io = io;
 
 // socket.io events
-io.on('connection', (socket) => {
+io.sockets.on('connection', socket => {
   console.log("as user connected: ", socket.id);
+  socket.on('ROOM', (room) => {
+    console.log("ROOM: ",room)
+    socket.join(room)
+  });
   socket.on('SEND_MESSAGE', (data) => {
-    console.log("DATA IN SOCKET: ", data)
-    io.emit('RECEIVE_MESSAGE', data)
+    console.log(data)
+    socket.broadcast.to(data.room).emit('RECEIVE_MESSAGE', "HELLO from the server");
   })
 })
+
 
 require('dotenv').config();
 mongoose.connect(process.env.MONGO_URI, (err, res) => {
