@@ -5,7 +5,6 @@ import Button from '../../../Components/UI/Button/Button';
 import Avatar from '../../../Components/Avatar/Avatar';
 import WindowHeader from '../../../Components/UI/WindowHeader/WindowHeader';
 import io from 'socket.io-client';
-let socket;
 class ChatBox extends Component {
   constructor(props){
     super(props);
@@ -19,13 +18,13 @@ class ChatBox extends Component {
 
   }
   componentDidMount(){
-    socket = io.connect('http://localhost:3001');
+    this.socket = io.connect('http://localhost:3001');
     // join a chat room for this location
     this.socket.on('connect', () => {
-      this.socket.emit('ROOM', "conshy");
+      this.socket.emit('JOIN', this.props.neighborhood);
     })
     this.socket.on('RECEIVE_MESSAGE', (data) => {
-      console.log(data)
+      console.log("Message received: ",data)
       let newMessages = [...this.state.messages, data]
       this.setState({
         messages: newMessages
@@ -41,18 +40,30 @@ class ChatBox extends Component {
 
   submitMessage = () => {
     let updatedChatHistory = [];
-    if (this.state.chatHistory) {
-      updatedChatHistory = [...this.state.chatHistory];
+    if (this.state.messages) {
+      updatedChatHistory = [...this.state.messages];
     }
-    const newMessage = {text: this.state.message, UserId: this.props.userId, LocationId: this.props.locationId}
     const date = moment().format("ddd, MMM Do hh:mm a");
+    const newMessage = {
+      room: this.props.neighborhood,
+      text: this.state.message,
+      UserId: this.props.userId,
+      user: this.props.user,
+      LocationId: this.props.locationId,
+      date: date,
+    }
     const displayMessage = {text: this.state.message, user: this.props.user, date: date};
     updatedChatHistory.push(displayMessage)
     // post to db
     console.log("SENDING MESSAGE")
-    this.socket.emit('SEND_MESSAGE', {room: 'conshy', newMessage: newMessage}, () => {
-      console.log("MESSAGE SENT");
-    })
+    this.socket.emit('SEND_MESSAGE', newMessage, () => {
+        this.setState({
+          messages: updatedChatHistory,
+          message: ''
+        })
+        console.log("MESSAGE SENT");
+      }
+    )
   }
 
   render() {

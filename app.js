@@ -16,15 +16,15 @@ var io = socket_io();
 app.io = io;
 
 // socket.io events
-io.sockets.on('connection', socket => {
+io.on('connection', socket => {
   console.log("as user connected: ", socket.id);
-  socket.on('ROOM', (room) => {
-    console.log("ROOM: ",room)
+  socket.on('JOIN', (room) => {
+    console.log("JOIN: ",room)
     socket.join(room)
   });
   socket.on('SEND_MESSAGE', (data) => {
     console.log(data)
-    socket.broadcast.to(data.room).emit('RECEIVE_MESSAGE', "HELLO from the server");
+    io.in(data.room).emit('RECEIVE_MESSAGE', data);
   })
 })
 
@@ -55,7 +55,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/api', api)
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
