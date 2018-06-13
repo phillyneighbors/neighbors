@@ -17,20 +17,38 @@ class ChatBox extends Component {
 
   }
   componentDidMount(){
+    // focus on message input
+    this.textInput.focus();
+    // event handler for enter key presses
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter'){
+        // handle differenct contexts of Enter clicks
+        if (this.state.message.length > 0){
+          this.submitMessage();
+        }
+      }
+    })
+    //connect to the backend websocket
     this.socket = io.connect(process.env.REACT_APP_SERVER_URL);
     // join a chat room for this location
     this.socket.on('connect', () => {
       this.socket.emit('JOIN', this.props.neighborhood);
     })
     this.socket.on('RECEIVE_MESSAGE', (data) => {
-      console.log("Message received: ",data)
       let newMessages = [...this.state.messages, data]
       this.setState({
         messages: newMessages
       })
     });
   }
+
   updateMessage = (event) => {
+    console.log(event)
+    if (event.key === 'Enter'){
+      console.log(event.key + " = Enter")
+      this.submitMessage();
+      return;
+    }
     let updatedMessage = event.target.value;
     this.setState({
       message: updatedMessage
@@ -38,6 +56,7 @@ class ChatBox extends Component {
   }
 
   submitMessage = () => {
+    console.log("SUBMIT")
     let updatedChatHistory = [];
     if (this.state.messages) {
       updatedChatHistory = [...this.state.messages];
@@ -54,15 +73,10 @@ class ChatBox extends Component {
     const displayMessage = {text: this.state.message, user: this.props.user, date: date};
     updatedChatHistory.push(displayMessage)
     // post to db
-    console.log("SENDING MESSAGE")
     this.socket.emit('SEND_MESSAGE', newMessage, () => {
-        this.setState({
-          messages: updatedChatHistory,
-          message: ''
-        })
-        console.log("MESSAGE SENT");
-      }
-    )
+      console.log("SETTING STATE");
+      console.log("MESSAGE SENT");
+    })
   }
 
   render() {
@@ -91,7 +105,12 @@ class ChatBox extends Component {
           {messages}
         </div>
         <div id="chatControls" className={classes.ChatControls}>
-          <input className={classes.ChatInput} value={this.state.message} onChange={this.updateMessage}/>
+          <input
+            className={classes.ChatInput}
+            value={this.state.message}
+            onChange={this.updateMessage}
+            ref={input => {this.textInput = input}}
+          />
           <Button clicked={this.submitMessage}>Send</Button>
         </div>
       </div>
