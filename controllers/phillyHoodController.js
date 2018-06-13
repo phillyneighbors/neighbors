@@ -9,23 +9,19 @@ module.exports = {
     return new Promise((resolve, reject) => {
       const hoodsFromGoogle = params.neighborhoods.split(",");
       const hoodNames = _.intersection(neighborhoods, hoodsFromGoogle);
-      const hoodName = hoodNames[hoodNames.length - 1];
+      console.log("HOOD NAMES: ", hoodNames)
+      const hoodName = hoodNames[0];
       // if there is more than one grab the last one -- google gives their
       // places results in order of least to most specific
       db.Hood.find({"properties.mapname": hoodName}, null)
-      .exec((err, hoods) => {
+      .exec((err, hood) => {
         console.log("RESP FROM DB")
         if (err) {
           console.log("ERR FROM DB: ", err)
           return reject(err);
         }
-        if (hoods[hoods.length - 1]){
-          hood = hoods[hoods.length - 1].summarize();
-          console.log("HOOOD")
-          console.log("HOOOD")
-          console.log("HOOOD")
-          console.log(hood)
-
+        if (hood[0]){
+          hood = hood[0].summarize();
         }
         resolve(hood)
       })
