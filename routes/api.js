@@ -9,6 +9,7 @@ const router = express.Router()
 const controllers = require('../controllers')
 
 router.get('/:resource', function(req, res, next){
+  console.log('route hit');
 	var resource = req.params.resource;
 	var controller = controllers[resource];
 	if (controller == null){
