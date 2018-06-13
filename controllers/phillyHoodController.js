@@ -13,16 +13,15 @@ module.exports = {
       // if there is more than one grab the last one -- google gives their
       // places results in order of least to most specific
       db.Hood.find({"properties.mapname": hoodName}, null)
-      .exec((err, hood) => {
+      .exec((err, hoods) => {
         console.log("RESP FROM DB")
         if (err) {
           console.log("ERR FROM DB: ", err)
           return reject(err);
         }
-        if (hood[0]){
-          hood = hood[0].summarize();
+        if (hoods[hoods.length - 1]){
+          hood = hoods[hoods.length - 1].summarize();
         }
-        console.log("NO ERROR :", hood)
         resolve(hood)
       })
     })
