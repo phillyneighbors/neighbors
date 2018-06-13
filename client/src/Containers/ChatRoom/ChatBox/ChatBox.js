@@ -14,11 +14,10 @@ class ChatBox extends Component {
         messages: []
     };
     // what does this need to be set to for production
-    this.socket = io('localhost:3001');
 
   }
   componentDidMount(){
-    this.socket = io.connect('http://localhost:3001');
+    this.socket = io.connect(process.env.REACT_APP_SERVER_URL);
     // join a chat room for this location
     this.socket.on('connect', () => {
       this.socket.emit('JOIN', this.props.neighborhood);
