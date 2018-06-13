@@ -39,12 +39,13 @@ The [philly-hoods](http://phillyhoods.net/) API has been down for some time, but
 they do have a JSON file in their repo with the necessary coordinates. The problem
 is that the data is structured like this...
 
-`"name" : "Washington Square West",
+```
+"name" : "Washington Square West",
         "totalStreets" : 0,
         "geometry" : {
             "type" : "Polygon",
             "coordinates" : [[[-75.157058, 39.942596], [-75.157571, 39.942665]...
-`
+```
 
 The coordinates data that we need is stored as an array of an array of arrays, and while
 it's certainly possible to arrange this data in a relational way, using a non-relation method
@@ -59,7 +60,8 @@ The server structure is as follows:
   appropriate controller based on the resource name
   1. For example, a basic get route looks like this:
 
-  `router.get('/:resource', function(req, res, next){
+  ```
+  router.get('/:resource', function(req, res, next){
   	var resource = req.params.resource;
   	var controller = controllers[resource];
   	if (controller == null){
@@ -81,7 +83,8 @@ The server structure is as follows:
   			errorMessage: err
   		})
   	})
-  })`
+  })
+  ```
 
   if we want to get all of the messages for a given location we would provide the
   name of the resource (i.e. message) and then specify which location in req.query
