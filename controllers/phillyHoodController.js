@@ -21,6 +21,11 @@ module.exports = {
         }
         if (hoods[hoods.length - 1]){
           hood = hoods[hoods.length - 1].summarize();
+          console.log("HOOOD")
+          console.log("HOOOD")
+          console.log("HOOOD")
+          console.log(hood)
+
         }
         resolve(hood)
       })
