@@ -125,7 +125,7 @@ as well as some UI components.
 the server and the google maps/places/geoCoder API
 
 ## Additional Notes
-## Todo
+### Todo
 
 1. S
 1. ~~Make the chat "live" with socket.io?~~
@@ -142,7 +142,7 @@ the server and the google maps/places/geoCoder API
 1. scroll chatbox
 1. ~~fav.icon~~
 
-## Bugs
+### Bugs
 1. when you navigate back to the login screen after successfully logging in
 you are automatically redirected back to the chatroom as soon as you start typing something
 -- this is probably because the state is set to loggedIn on the first login and doesn't

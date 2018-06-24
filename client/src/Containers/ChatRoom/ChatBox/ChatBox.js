@@ -77,6 +77,10 @@ class ChatBox extends Component {
       console.log("SETTING STATE");
       console.log("MESSAGE SENT");
     })
+    this.setState({
+      message: '',
+      messages: updatedChatHistory,
+    })
   }
 
   render() {

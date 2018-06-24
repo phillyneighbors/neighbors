@@ -24,7 +24,7 @@ io.on('connection', socket => {
   });
   socket.on('SEND_MESSAGE', (data) => {
     console.log(data)
-    io.in(data.room).emit('RECEIVE_MESSAGE', data);
+    io.broadcast.to(data.room).emit('RECEIVE_MESSAGE', data);
   })
 })
 
@@ -38,7 +38,8 @@ mongoose.connect(process.env.MONGO_URI, (err, res) => {
     console.log('DB CONNECTION SUCCESS')
   }
 })
-// serve react files
+
+// serve react files for production build
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
@@ -51,7 +52,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
@@ -72,7 +73,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  // res.render('error');
 });
 
 module.exports = app;
