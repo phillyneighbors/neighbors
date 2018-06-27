@@ -20,10 +20,10 @@ class Login extends Component {
   render() {
     return (
       <div className="container">
-      <div className="row">
-      <div className={classes.LoginForm}>
-        <WindowHeader position="center">Login/SignUp</WindowHeader>
-        <form className={classes.Form}>
+        <div className="row">
+          <div className={classes.LoginForm}>
+            <WindowHeader position="center">Login/SignUp</WindowHeader>
+            <form className={classes.Form}>
           <TextInput
             type="text"
             placeholder="username"
@@ -38,7 +38,7 @@ class Login extends Component {
       </div>
       </div>
       </div>
-      
+
     )
   };
 }
