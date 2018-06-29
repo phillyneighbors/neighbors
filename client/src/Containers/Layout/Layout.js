@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import Login from '../Login/Login';
 import ChatRoom from '../ChatRoom/ChatRoom';
 import NavBar from '../../Components/Navigation/Navigation';
+import Footer from '../../Components/Footer/Footer';
 import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../store/actions/chatActions'
 import classes from './layout.css';
-import backgroundImage from './assets/images/neighbors-2.jpg';
+import backgroundImage from './assets/images/city.jpg';
 class Layout extends Component {
   // get the user's location as soon as they go to the homepage
   componentWillMount() {
@@ -48,6 +49,7 @@ class Layout extends Component {
           <Route path="/" exact component={Login}/>
           <Route path="/chatRoom" exact component = {ChatRoom} />
         </main>
+        <Footer />
       </div>
     )
   }
