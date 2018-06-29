@@ -1,22 +1,6 @@
 import api from '../../utils/apiRequests';
 import * as actionTypes from './actionTypes';
 
-// ACTION CREATORS
-// receives payload from an action -- in this case username
-export const updateUsername = (username) => {
-  return {
-    type: actionTypes.UPDATE_USERNAME,
-    username,
-  };
-};
-
-export const updatePassword = (password) => {
-  return {
-    type: actionTypes.UPDATE_PASSWORD,
-    password,
-  };
-};
-
 // Asnyc action to check database for user
 // after this action run userAuthenticated
 export const userLogin = () => {

@@ -10,13 +10,25 @@ import * as actionCreators from '../../store/actions/loginActions';
 
 
 class Login extends Component {
+
+  state = {
+    username: '',
+    password: '',
+  }
+
   componentDidUpdate(prevProps) {
     console.log(prevProps)
     if (this.props.loggedIn){
-      console.log("LOGGED IN!")
       this.props.history.push('/chatRoom')
     }
   }
+
+  changeHandler = (event) => {
+    this.setState({
+      [event.targe.name]: event.target.value,
+    })
+  }
+
   render() {
     return (
       <div className="container">
@@ -24,36 +36,33 @@ class Login extends Component {
           <div className={classes.LoginForm}>
             <WindowHeader position="center">Login/SignUp</WindowHeader>
             <form className={classes.Form}>
-          <TextInput
-            type="text"
-            placeholder="username"
-            changeHandler={event => (this.props.handleUsernameChange(event.target.value))} />
+              <TextInput
+                type="text"
+                placeholder="username"
+                name="username"
+                changeHandler={this.changeHandler} />
 
-          <TextInput
-            type="password"
-            placeholder="password"
-            changeHandler={event => (this.props.handlePasswordChange(event.target.value))} />
-        </form>
-        <Button clicked={this.props.login}>Log In</Button>
+              <TextInput
+                type="password"
+                placeholder="password"
+                name="password"
+                changeHandler={this.changeHandler} />
+            </form>
+            <Button clicked={this.props.login}>Log In</Button>
+          </div>
+        </div>
       </div>
-      </div>
-      </div>
-
     )
   };
 }
 
 const mapStateToProps = state => {
   return {
-    username: state.loginReducer.username,
-    password: state.loginReducer.password,
     loggedIn: state.loginReducer.loggedIn,
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    handleUsernameChange: (username) => dispatch(actionCreators.updateUsername(username)),
-    handlePasswordChange: (password) => dispatch(actionCreators.updatePassword(password)),
     login: () => dispatch(actionCreators.userLogin())
   }
 }
