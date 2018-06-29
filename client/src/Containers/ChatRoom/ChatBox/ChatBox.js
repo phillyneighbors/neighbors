@@ -6,16 +6,13 @@ import Avatar from '../../../Components/Avatar/Avatar';
 import WindowHeader from '../../../Components/UI/WindowHeader/WindowHeader';
 import io from 'socket.io-client';
 class ChatBox extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
+  state = {
         username: '',
         message: '',
         messages: []
-    };
+  }
     // what does this need to be set to for production
 
-  }
   componentDidMount(){
     // focus on message input
     this.textInput.focus();
@@ -35,7 +32,9 @@ class ChatBox extends Component {
       this.socket.emit('JOIN', this.props.neighborhood);
     })
     this.socket.on('RECEIVE_MESSAGE', (data) => {
+      console.log("received message ")
       let newMessages = [...this.state.messages, data]
+      console.log('Setting state line 40')
       this.setState({
         messages: newMessages
       })
@@ -43,8 +42,8 @@ class ChatBox extends Component {
   }
 
   updateMessage = (event) => {
-    console.log(event)
     if (event.key === 'Enter'){
+      console.log('you hit enter')
       console.log(event.key + " = Enter")
       this.submitMessage();
       return;
@@ -77,6 +76,7 @@ class ChatBox extends Component {
       console.log("SETTING STATE");
       console.log("MESSAGE SENT");
     })
+    console.log("seeting state line 83")
     this.setState({
       message: '',
       messages: updatedChatHistory,

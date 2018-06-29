@@ -1,22 +1,18 @@
 import api from '../../utils/apiRequests';
-// ACTION TYPES
-export const USER_LOGIN = 'USER_LOGIN';
-export const USER_LOGOUT = 'USER_LOGOUT';
-export const UPDATE_USERNAME = 'UPDATE_USERNAME';
-export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
+import * as actionTypes from './actionTypes';
 
 // ACTION CREATORS
 // receives payload from an action -- in this case username
 export const updateUsername = (username) => {
   return {
-    type: UPDATE_USERNAME,
+    type: actionTypes.UPDATE_USERNAME,
     username,
   };
 };
 
 export const updatePassword = (password) => {
   return {
-    type: UPDATE_PASSWORD,
+    type: actionTypes.UPDATE_PASSWORD,
     password,
   };
 };
@@ -38,7 +34,7 @@ export const userLogin = () => {
 export const userAuthenticated = (userId) => {
   // if result is successful login log the user in
   return {
-    type: USER_LOGIN,
+    type: actionTypes.USER_LOGIN,
     userId,
   };
 };

@@ -24,7 +24,7 @@ io.on('connection', socket => {
   });
   socket.on('SEND_MESSAGE', (data) => {
     console.log(data)
-    io.broadcast.to(data.room).emit('RECEIVE_MESSAGE', data);
+    socket.broadcast.to(data.room).emit('RECEIVE_MESSAGE', data);
   })
 })
 

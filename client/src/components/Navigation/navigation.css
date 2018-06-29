@@ -16,7 +16,7 @@
   color: white;
   font-family: 'Pacifico', cursive;
   box-shadow:  0 8px 17px 8px rgba(0,0,0,0.24), 0 3px 14px 10px rgba(0,0,0,0.22), 0 5px 5px -3px rgba(0,0,0,0.32);
-  z-index: 1000 !important;
+  z-index: 1 !important;
 }
 
 .Title {
@@ -48,4 +48,3 @@
 }
 
   /* align-self: flex-end; */
- 

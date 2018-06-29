@@ -1,5 +1,5 @@
 .ChatBox {
-  z-index: 1000;
+  z-index: 1;
 }
 
 
@@ -89,7 +89,7 @@
     width: 150px;
     height: 60vh;
     border-radius: 4px;
-    display: flex; 
+    display: flex;
      flex-flow: column;
     justify-content: flex-start;
     align-items: flex-start;
