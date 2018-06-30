@@ -10,7 +10,7 @@ import Avatar from '../Avatar/Avatar'
     <div className={classes.Navbar}>
     <nav className="navbar navbar-expand-lg navbar-light">
     
-    <a className="navbar-brand" href="#">
+    <a className="navbar-brand" href="/chatRoom">
     <div className={classes.Title}>neighbors</div>
     </a>
   

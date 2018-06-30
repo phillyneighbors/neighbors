@@ -34,7 +34,7 @@
 }
 
 .ChatInput {
-  font-family: 'Raleway', cursive;
+  font-family: 'Work Sans', sans-serif;
   height: 40px;
   border-radius: 4px;
   border: 2px solid #aaa;
@@ -57,7 +57,7 @@
 
 .Message {
   padding: 10px;
-  font-family: 'Raleway', cursive;
+  font-family: 'Work Sans', sans-serif;
   font-size: .8em;
   display: flex;
   flex-flow: column;
@@ -98,7 +98,7 @@
   }
 
   .ChatInput {
-    font-family: 'Raleway', cursive;
+    font-family: 'Work Sans', sans-serif;
     height: 40px;
     border-radius: 4px;
     border: 2px solid #aaa;
