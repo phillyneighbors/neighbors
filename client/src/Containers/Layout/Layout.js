@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Login from '../Login/Login';
 import ChatRoom from '../ChatRoom/ChatRoom';
+import Explore from '../Explore/Explore';
+import About from '../About/About';
 import NavBar from '../../Components/Navigation/Navigation';
 import Footer from '../../Components/Footer/Footer';
 import { Route, withRouter } from 'react-router-dom';
@@ -48,8 +50,10 @@ class Layout extends Component {
         <main className={classes.Main}>
           <Route path="/" exact component={Login}/>
           <Route path="/chatRoom" exact component = {ChatRoom} />
+          <Route path="/explore" exact component = {Explore} />
+          <Route path="/about" exact component = {About} />
         </main>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     )
   }

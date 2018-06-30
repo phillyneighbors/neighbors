@@ -31,14 +31,14 @@ import Avatar from '../Avatar/Avatar'
 
         {/* Nav Link 1 */}
         <li className="nav-item active">
-          <a className="nav-link" href="#">
+          <a className="nav-link" href="/explore">
             <span className={classes.NavLink}> explore </span> 
           </a>
         </li>
 
         {/* Nav Link 2 */}
         <li className="nav-item active">
-          <a className="nav-link" href="#">
+          <a className="nav-link" href="/about">
             <span className={classes.NavLink}> about </span> 
           </a>
         </li>

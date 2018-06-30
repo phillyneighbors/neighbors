@@ -1,17 +1,17 @@
-import React from 'react';
-import './Footer.css';
-import classes from './Footer.css';
+// import React from 'react';
+// import './Footer.css';
+// import classes from './Footer.css';
 
-const Footer = () => {
-    return (
+// const Footer = () => {
+//     return (
 
-        <footer className="page-footer font-small teal pt-4"> Footer 
-            <div class="container-fluid text-center text-md-left">
+//         <footer className="page-footer font-small teal pt-4"> Footer 
+//             <div class="container-fluid text-center text-md-left">
             
-        </footer>
+//         </footer>
 
-)
-}
+// )
+// }
 
-export default Footer;
+// export default Footer;
 
