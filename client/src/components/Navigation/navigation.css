@@ -18,6 +18,10 @@
   text-align: right;
   float: left;
 }
+
+.image {
+  size: 100px;
+}
 /* .navbar .navbar-default {
   background-color: #f46242 !important
 } */

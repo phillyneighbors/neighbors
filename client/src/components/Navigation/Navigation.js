@@ -1,7 +1,6 @@
 import React from 'react';
 import './Navigation.css';
 import classes from './Navigation.css';
-
 import image from './logo.png'
 import Avatar from '../Avatar/Avatar'
 
@@ -9,7 +8,7 @@ import Avatar from '../Avatar/Avatar'
   return (
     <div className={classes.Navbar}>
     <nav className="navbar navbar-expand-lg navbar-light">
-    
+    <img src={image} height="100px" />
     <a className="navbar-brand" href="/chatRoom">
     <div className={classes.Title}>neighbors</div>
     </a>
@@ -26,20 +25,20 @@ import Avatar from '../Avatar/Avatar'
     </button>
 
  
-    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul className="navbar-nav mr-auto">
+    <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <ul className="navbar-nav">
 
         {/* Nav Link 1 */}
         <li className="nav-item active">
           <a className="nav-link" href="/explore">
-            <span className={classes.NavLink}> explore </span> 
+            <span className={classes.NavLink}> explore</span> 
           </a>
         </li>
 
         {/* Nav Link 2 */}
         <li className="nav-item active">
           <a className="nav-link" href="/about">
-            <span className={classes.NavLink}> about </span> 
+            <span className={classes.NavLink}>about </span> 
           </a>
         </li>
 
