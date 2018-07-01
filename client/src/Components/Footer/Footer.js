@@ -1,17 +1,19 @@
-// import React from 'react';
-// import './Footer.css';
-// import classes from './Footer.css';
+import React from 'react';
+import './Footer.css';
+import classes from './Footer.css';
+import StickyFooter from 'react-sticky-footer';
 
-// const Footer = () => {
-//     return (
-
-//         <footer className="page-footer font-small teal pt-4"> Footer 
-//             <div class="container-fluid text-center text-md-left">
+const Footer = () => {
+    return (
+        
+        <div className="footer">
             
-//         </footer>
+        </div>
+ 
+ 
 
-// )
-// }
+)
+}
 
-// export default Footer;
+export default Footer;
 

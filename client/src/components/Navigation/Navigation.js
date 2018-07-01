@@ -8,10 +8,13 @@ import Avatar from '../Avatar/Avatar'
   return (
     <div className={classes.Navbar}>
     <nav className="navbar navbar-expand-lg navbar-light">
-    <img src={image} height="100px" />
-    <a className="navbar-brand" href="/chatRoom">
-    <div className={classes.Title}>neighbors</div>
+    <img src={image} height="100px" href="/" />
+    <a className="navbar-brand mx-auto d-block text-center order-0" href="/chatRoom">
+      <div className={classes.Title}>neighbors</div>
     </a>
+    {/* <a href="/" class="navbar-brand mx-auto d-block text-center order-0 order-md-1 w-25">Brand</a>       */}
+  
+
   
 
     <button

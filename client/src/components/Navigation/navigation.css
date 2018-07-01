@@ -1,14 +1,17 @@
 .Navbar {
-  background-color: #6bc0bb !important;
-  color: #6bc0bb;
+  background-color: #f49e75 !important;
+  color: #f49e75;
+  display: block;
+  margin-bottom: 50px;
 }
 
 .Title {
   text-align: center;
   font-family: 'Work Sans', sans-serif;
   color: whitesmoke;
-  font-size: 50px
-
+  font-size: 60px;
+  float: none;
+  display: block;
 }
 
 .NavLink {
@@ -21,6 +24,10 @@
 
 .image {
   size: 100px;
+}
+
+.mx-auto {
+  width: 200px;
 }
 /* .navbar .navbar-default {
   background-color: #f46242 !important

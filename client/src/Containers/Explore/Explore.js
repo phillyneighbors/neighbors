@@ -4,7 +4,7 @@ class Explore extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <h1> Explore Page! </h1>
             </div>
         );
