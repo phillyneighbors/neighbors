@@ -4,8 +4,10 @@
   margin: 10px;
   border-radius: 4px;
   text-align: center;
-  color: white;
-  background: #1f89e0 !important;
+  color: rgba(27, 71, 107, 0.562);
+  background: white !important;
+  font-family: 'Work Sans', sans-serif;
+
 }
 
 .Input::placeholder {

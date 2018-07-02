@@ -1,6 +1,6 @@
 .Button {
   border-radius: 4px;
-  background-color: #f46242;
+  background-color: #f49e75;
   color: white;
   border: none;
   padding: 10px;
@@ -12,6 +12,9 @@
   transition: .2s;
   letter-spacing: .08em;
   cursor: pointer;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: bold;
+
 }
 
 .Button:hover {
