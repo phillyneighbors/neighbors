@@ -16,9 +16,10 @@ Project setup following [this guide](https://daveceddia.com/create-react-app-exp
 1. in the root directory create a .env file and intialize a variable called `MONGO_URI`
 1. create a mongo database in your local environment and point the MONGO_URI to it
 1. from the root directory import the phillyhoods data into your db
+`mongorestore -d <theNameOfYourDB> -c hoods ./hoodsData/phillyhoods/hoods.bson`
 
 ## Technologies used
-* This project was built using MySql + sequelize, MongoDB, Node, Express, React, and Redux.
+* This project was built MongoDB (+ Mongoose), Node, Express, React, and Redux.
 * Additional technologies include react-router(v4), google maps and places APIs,
 data from [philly-hoods](http://phillyhoods.net/) (to get neighborhood boundaries), and
 [socket.io](https://socket.io/) for live chat functionality.
@@ -28,28 +29,6 @@ data from [philly-hoods](http://phillyhoods.net/) (to get neighborhood boundarie
 * All of the front-end React code lives in the client directory and runs on PORT 3000
 * The projects are connected via the package.json file in the client directory
 * `"proxy": "http://localhost:3001"`
-
-### A Note on the Database(s)
-This project utilizes and MySql database and a Mongo database. Why both you may ask?
-Well, we started with a MySql database to handle all of the user, location, and message
-storage because this was one of the assignment requirements. While we were building
-the neighborhood outline functionality it became clear that we would need this
-information in a database as there was no viable API to fetch this information.
-The [philly-hoods](http://phillyhoods.net/) API has been down for some time, but
-they do have a JSON file in their repo with the necessary coordinates. The problem
-is that the data is structured like this...
-
-```
-"name" : "Washington Square West",
-        "totalStreets" : 0,
-        "geometry" : {
-            "type" : "Polygon",
-            "coordinates" : [[[-75.157058, 39.942596], [-75.157571, 39.942665]...
-```
-
-The coordinates data that we need is stored as an array of an array of arrays, and while
-it's certainly possible to arrange this data in a relational way, using a non-relation method
-is much, much, much...much easier.
 
 ### Server Side
 The server side code was bootstrapped with [express-generator](https://www.npmjs.com/package/express-generator)
