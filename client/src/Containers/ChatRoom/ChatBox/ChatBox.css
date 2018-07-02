@@ -5,7 +5,7 @@
 
 .Window {
   background-color: #f9f9f9;
-  /* position: fixed; */
+  position: fixed;
   float: left;
   top: 150px;
   left: 40px;
@@ -27,7 +27,7 @@
   width: 350px;
   display: flex;
   flex-flow: column;
-  /* position: fixed; */
+  position: fixed;
   justify-content: space-between;
   bottom: 30px;
   left: 40px;

@@ -22,6 +22,10 @@
   float: left;
 }
 
+.NavLink:hover {
+  text-decoration: underline;
+}
+
 .image {
   size: 100px;
 }
