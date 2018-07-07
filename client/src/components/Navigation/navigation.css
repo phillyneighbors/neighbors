@@ -3,6 +3,9 @@
   color: #f49e75;
   display: block;
   margin-bottom: 50px;
+  z-index: 2;
+  position: fixed;
+  width: 100%;
 }
 
 .Title {
