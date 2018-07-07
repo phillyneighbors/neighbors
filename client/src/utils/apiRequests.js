@@ -31,6 +31,7 @@ export default {
   },
 
   userLogin: (username, password) => {
+    console.log(username, password)
     return new Promise((resolve, reject) => {
       axios.post('/api/user', {
         username,

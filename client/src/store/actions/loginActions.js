@@ -3,22 +3,20 @@ import * as actionTypes from './actionTypes';
 
 // Asnyc action to check database for user
 // after this action run userAuthenticated
-export const userLogin = () => {
+export const userLogin = (username, password) => {
   return (dispatch, getState) => {
-    const username = getState().loginReducer.username;
-    const password = getState().loginReducer.password;
     api.userLogin(username, password)
     .then(response => {
       console.log(response)
-      dispatch(userAuthenticated(response.data.result._id))
+      dispatch(userAuthenticated(response.data.result))
     })
   };
 };
 
-export const userAuthenticated = (userId) => {
+export const userAuthenticated = (user) => {
   // if result is successful login log the user in
   return {
     type: actionTypes.USER_LOGIN,
-    userId,
+    user,
   };
 };

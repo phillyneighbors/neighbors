@@ -25,8 +25,13 @@ class Login extends Component {
 
   changeHandler = (event) => {
     this.setState({
-      [event.targe.name]: event.target.value,
+      [event.target.name]: event.target.value,
     })
+  }
+
+  loginHandler = () => {
+    console.log(this.state.username, this.state.password)
+    this.props.login(this.state.username, this.state.password)
   }
 
   render() {
@@ -48,7 +53,7 @@ class Login extends Component {
                 name="password"
                 changeHandler={this.changeHandler} />
             </form>
-            <Button clicked={this.props.login}>Log In</Button>
+            <Button clicked={this.loginHandler}>Log In</Button>
           </div>
         </div>
       </div>
@@ -63,7 +68,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    login: () => dispatch(actionCreators.userLogin())
+    login: (username, password) => dispatch(actionCreators.userLogin(username, password))
   }
 }
 

@@ -1,9 +1,8 @@
-import * as actionTypes from '../actions/loginActions'
+import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   username: '',
   userId: '',
-  password: '',
   loggedIn: false
 }
 
@@ -14,7 +13,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loggedIn: true,
-        userId: action.userId
+        userId: action.user.userId,
+        username: action.user.username,
       }
     default:
       return state

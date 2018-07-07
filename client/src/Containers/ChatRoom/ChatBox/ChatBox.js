@@ -13,9 +13,13 @@ class ChatBox extends Component {
   }
     // what does this need to be set to for production
 
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
   componentDidMount(){
     // focus on message input
     this.textInput.focus();
+    this.scrollToBottom();
     // event handler for enter key presses
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Enter'){
@@ -39,6 +43,10 @@ class ChatBox extends Component {
         messages: newMessages
       })
     });
+  }
+
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
 
   updateMessage = (event) => {
@@ -88,8 +96,10 @@ class ChatBox extends Component {
     if (this.state.messages) {
       messages = this.state.messages.map((message, i) => {
         console.log(message)
+        let messageClass = (message.user === this.props.user) ?
+          classes.Message : [classes.Message, classes.MessageRecv].join(' ');
         return (
-          <div key={i} className={classes.Message}>
+          <div key={i} className={messageClass}>
             <Avatar context="chat" username={message.user}/>
             <span className={classes.MessageText}>{message.text}</span>
             <div className={classes.TimeStamp}>({message.date})</div>
@@ -97,6 +107,8 @@ class ChatBox extends Component {
 
         )
       })
+      // use this to scroll to the bottom
+      messages.push(<div ref={el => { this.messagesEnd = el}}></div>)
     }
     return (
 
@@ -106,7 +118,7 @@ class ChatBox extends Component {
 
         <div className={classes.Window}>
           <WindowHeader >{this.props.neighborhood} Chat</WindowHeader>
-          {messages}
+          <div className={classes.ChatScroll} id='scrollable'>{messages}</div>
         </div>
         <div id="chatControls" className={classes.ChatControls}>
           <input

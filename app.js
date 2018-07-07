@@ -42,7 +42,7 @@ mongoose.connect(process.env.MONGO_URI, (err, res) => {
 // serve react files for production build
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+  res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });
 
 
