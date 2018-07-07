@@ -7,13 +7,25 @@ import api from '../../utils/apiRequests';
 
 class ChatRoom extends Component {
   state = {
-    hoodCoords: []
+    currentHoodCoords: [],
+    allHoodCoords: []
   }
   componentDidMount() {
-    api.getHoodCoords(this.props.location)
-    .then(coords => {
-      console.log(coords)
-      this.setState({hoodCoords: coords[0]})
+    // api.getHoodCoords(this.props.location)
+    // .then(coords => {
+    //   console.log(coords)
+    //   this.setState({hoodCoords: coords[0]})
+    // })
+    api.getAllHoodCoords()
+    .then(res => {
+      let hoods = res.data.results;
+      let allHoodCoords = hoods.map(hood => (
+        hood.geometry.coordinates[0]
+      ))
+      console.log("ALL HOOD COORDS: ", allHoodCoords);
+      this.setState({
+        allHoodCoords,
+      })
     })
   }
 
@@ -25,6 +37,7 @@ class ChatRoom extends Component {
           lat={this.props.lat}
           lng={this.props.lng}
           hoodCoords={this.props.geometry}
+          allHoodCoords={this.state.allHoodCoords}
         />
         <ChatBox
           neighborhood={this.props.neighborhood}

@@ -18,6 +18,24 @@ router.get('/:resource', function(req, res, next){
 			message:'Invalid resource...check your spelling'
 		})
 	}
+  if (Object.keys(req.query).length === 0) {
+    console.log('no query params')
+    controller.getAll()
+    .then(results => {
+      res.json({
+        confirmation: 'success',
+        results,
+      })
+    })
+    .catch(err => {
+      console.log("Failed to get all")
+      res.status(400).json({
+        confirmation: 'fail',
+        err,
+      })
+    })
+    return;
+  }
 	controller.get(req.query)
 	.then(function(results){
 		res.json({

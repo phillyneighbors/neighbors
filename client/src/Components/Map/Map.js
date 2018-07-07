@@ -6,13 +6,29 @@ import mapStyles from './mapStyles.json';
 
 export class MapContainer extends Component  {
   render() {
-    let pathCoords;
-    if (this.props.hoodCoords){
-      pathCoords = this.props.hoodCoords.map((coordSet) => (
-        {lat: coordSet[1], lng: coordSet[0]}
-      ))
-      console.log("PATHCOORDS: ",pathCoords);
-    }
+    // let pathCoords;
+    // if (this.props.hoodCoords){
+    //   pathCoords = this.props.hoodCoords.map((coordSet) => (
+    //     {lat: coordSet[1], lng: coordSet[0]}
+    //   ))
+    //   console.log("PATHCOORDS: ",pathCoords);
+    // }
+    const polyLinesArr = this.props.allHoodCoords.map(hood => {
+      const geometry = []
+      hood.forEach(hoodData => {
+        hoodData.forEach(coordSet => {
+          geometry.push({lat: coordSet[1], lng: coordSet[0]})
+        })
+      })
+      return (
+      <Polyline
+        path={geometry}
+        strokeColor='#F46242'
+        strokeOpacity={0.8}
+        strokeWeight={6}
+      />)
+
+    })
     // we want to offeset the map a little bit so the outlined neighborhood
     // fits nicely next to the chatbox
     // const offSetLat = this.props.lat + .004;
@@ -30,14 +46,7 @@ export class MapContainer extends Component  {
           <Marker onClick={this.onMarkerClick}
             position={{lat: this.props.lat, lng: this.props.lng}}
             name={'Current location'} />
-
-          <Polyline
-            path={pathCoords}
-            strokeColor='#F46242'
-            strokeOpacity={0.8}
-            strokeWeight={6}
-          />
-
+          {polyLinesArr}
         </Map>
     );
   }

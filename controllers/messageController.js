@@ -1,7 +1,7 @@
 const db = require('../models')
 
 module.exports = {
-  get: (locationId) => {
+  get: locationId => {
     return new Promise((resolve, reject) => {
       console.log("in message controller")
       db.Message.findAll({'$where': {location: locationId}})

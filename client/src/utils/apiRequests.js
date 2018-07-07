@@ -64,5 +64,16 @@ export default {
       })
 
     })
+  },
+
+  getAllHoodCoords: () => {
+    return new Promise((resolve, reject) => {
+      axios.get('/api/phillyHood')
+      .then(res => {
+        console.log("ALL HOOD COORDS: ",res)
+        resolve(res)
+      })
+      .catch(err => console.log(err))
+    })
   }
 }
