@@ -1,17 +1,22 @@
 import React from 'react';
 import './Navigation.css';
 import classes from './Navigation.css';
-import image from './logo.png'
+import image from './logo1.png'
 import Avatar from '../Avatar/Avatar'
 
   const Navbar = () => {
   return (
     <div className={classes.Navbar}>
     <nav className="navbar navbar-expand-lg navbar-light">
+    {/* <div className="animated bounce"> */}
     <img src={image} height="100px" href="/" />
+    {/* </div> */}
     <a className="navbar-brand mx-auto d-block text-center order-0" href="/">
+    {/* <div className="animated zoomInUp"> */}
       <div className={classes.Title}>neighbors</div>
+    {/* </div> */}
     </a>
+
     {/* <a href="/" class="navbar-brand mx-auto d-block text-center order-0 order-md-1 w-25">Brand</a>       */}
   
 
