@@ -7,7 +7,9 @@ class About extends Component {
 
     render() {
         return (
+
             <div className="container">
+            <div className={classes.Container}>
                 <div className="row">
                     <div className="jumbotron">
                         <h1 className="display-4">Hello, world!</h1>
@@ -54,6 +56,7 @@ class About extends Component {
                     </div>
                     </div>
                 </div>
+            </div>
             </div>
             
         );
