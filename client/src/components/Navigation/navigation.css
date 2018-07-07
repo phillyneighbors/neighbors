@@ -1,11 +1,54 @@
+.Navbar {
+  background-color: #f49e75 !important;
+  color: #f49e75;
+  display: block;
+  margin-bottom: 50px;
+}
+
+.Title {
+  text-align: center;
+  font-family: 'Work Sans', sans-serif;
+  color: whitesmoke;
+  font-size: 60px;
+  float: none;
+  display: block;
+}
+
+.NavLink {
+  font-family: 'Work Sans', sans-serif;
+  color: whitesmoke !important;
+  font-size: 20px;
+  text-align: right;
+  float: left;
+}
+
+.NavLink:hover {
+  text-decoration: underline;
+}
+
+.image {
+  size: 100px;
+}
+
+.mx-auto {
+  width: 200px;
+}
 /* .navbar .navbar-default {
   background-color: #f46242 !important
 } */
 
-.navbar-fixed-top .navbar-home {
+/* .navbar .navbar-expand-lg .navbar-light .bg-light {
   background-color: #f46242 !important
+
 }
-.NavBar {
+
+.navbar {
+  color: #f46242;
+  background-color: #f46242
+} */
+
+
+/* .NavBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -45,6 +88,6 @@
   .headerImage {
     width:50%
   }
-}
+} */
 
   /* align-self: flex-end; */
