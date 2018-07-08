@@ -1,16 +1,20 @@
 import React from 'react';
 import './Footer.css';
+import classes from './Footer.css';
+
 
 
 const Footer = () => {
     return (
-      <footer>
-      <div className="container">
-        <div className="row">
-          <h5 className="center white-text footer-update">© 2018</h5>
+
+      <footer className="page-footer font-small fixed-bottom">
+        <div className={classes.f00ter}>
+        <div className="footer-copyright text-center py-3">
+          © 2018 Copyright
         </div>
-      </div>
-    </footer>
+        </div>
+      </footer>
+
   )
 }
 
