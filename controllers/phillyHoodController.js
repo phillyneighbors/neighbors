@@ -16,7 +16,7 @@ module.exports = {
       // if there is more than one grab the last one -- google gives their
       // places results in order of least to most specific
 
-      db.Hood.findAll(dbParams)
+      db.Hood.find(dbParams)
       .exec((err, hood) => {
         console.log("RESP FROM DB")
         if (err) {

@@ -11,3 +11,12 @@
   z-index: 1;
   overflow-x: hidden;
 }
+
+.PolyLine {
+  opacity: 0;
+  transition: .2s;
+}
+
+.PolyLine:hover {
+  opacity: 1;
+}

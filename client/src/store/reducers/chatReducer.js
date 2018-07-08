@@ -1,13 +1,13 @@
-import * as actionTypes from '../actions/chatActions'
+import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
-  message: '',
   chat: [],
   neighborhood: '',
   lat: '',
   lng: '',
   geometry: [],
-  locationId: ''
+  locationId: '',
+  hoods: [],
 }
 
 const reducer = (state = initialState, action) => {
@@ -31,6 +31,11 @@ const reducer = (state = initialState, action) => {
         chat: action.chat,
         geometry: action.geometry,
         locationId: action.locationId
+      }
+    case actionTypes.SUBMIT_HOODS:
+      return {
+        ...state,
+        hoods: action.hoods,
       }
     default:
       return state

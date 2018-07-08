@@ -16,17 +16,6 @@ class ChatRoom extends Component {
     //   console.log(coords)
     //   this.setState({hoodCoords: coords[0]})
     // })
-    api.getAllHoodCoords()
-    .then(res => {
-      let hoods = res.data.results;
-      let allHoodCoords = hoods.map(hood => (
-        hood.geometry.coordinates[0]
-      ))
-      console.log("ALL HOOD COORDS: ", allHoodCoords);
-      this.setState({
-        allHoodCoords,
-      })
-    })
   }
 
   render() {
@@ -37,7 +26,7 @@ class ChatRoom extends Component {
           lat={this.props.lat}
           lng={this.props.lng}
           hoodCoords={this.props.geometry}
-          allHoodCoords={this.state.allHoodCoords}
+          allHoodCoords={this.props.hoods}
         />
         <ChatBox
           neighborhood={this.props.neighborhood}
@@ -59,7 +48,8 @@ const mapStateToProps = (state) => ({
   lat: state.chatReducer.lat,
   lng: state.chatReducer.lng,
   username: state.loginReducer.username,
-  chat: state.chatReducer.chat
+  chat: state.chatReducer.chat,
+  hoods: state.chatReducer.hoods
 });
 
 const mapDispatchToProps = dispatch => {

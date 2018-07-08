@@ -1,23 +1,27 @@
-import googlePlaces from '../../utils/googlePlaces' // consider just combining this with apiRequests
-// ACTION TYPES
-export const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
-export const SEND_MESSAGE = 'SEND_MESSAGE';
-export const GET_LOCATION = 'GET_LOCATION'
-
+import googlePlaces from '../../utils/googlePlaces'; // consider just combining this with apiRequests
+import api from '../../utils/apiRequests';
+import * as actionTypes from './actionTypes';
 // ACTION CREATORS
 // receives payload from an action -- in this case username
 export const updateMessage = (message) => {
   return {
-    type: UPDATE_MESSAGE,
+    type: actionTypes.UPDATE_MESSAGE,
     message,
   }
 }
 export const sendMessage = (message) => {
   return {
-    type: SEND_MESSAGE,
+    type: actionTypes.SEND_MESSAGE,
     message,
   };
 };
+
+export const submitHoodsCoords = hoods => {
+  return {
+    type: actionTypes.SUBMIT_HOODS,
+    hoods,
+  }
+}
 
 // Async action to lookup neighborhood from geoCoords
 export const getLocation = (lat, lng) => {
@@ -29,6 +33,13 @@ export const getLocation = (lat, lng) => {
     .then(result => {
       dispatch(submitLocation(result, lat, lng));
     })
+    .catch(err => console.log(err))
+
+    api.getHoodCoords()
+    .then(result => {
+      console.log(result)
+      dispatch(submitHoodsCoords(result))
+    })
     .catch(err => {
       console.log("error getting neighborhood name")
       console.log(err)
@@ -38,7 +49,7 @@ export const getLocation = (lat, lng) => {
 
 export const submitLocation = (location, lat, lng) => {
   return {
-    type: GET_LOCATION,
+    type: actionTypes.GET_LOCATION,
     neighborhood: location.neighborhood,
     lat,
     lng,
