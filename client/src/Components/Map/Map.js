@@ -9,7 +9,8 @@ export class MapContainer extends Component {
     currentHood: '1',
     hoods: [],
     opacity: 0.2,
-    color: 'red'
+    color: 'blue',
+    visible: false
   }
 
   componentDidMount() {
@@ -25,12 +26,13 @@ export class MapContainer extends Component {
     })
     this.setState({hoods: polyLinesArr})
   }
-  showPolyLine = (event) => {
-    console.log(event)
-    console.log(event.proto.get('id'))
+  markerClick = (props, marker, event) => {
+    marker.strokeColor = 'blue';
+    this.setState({visible: !this.state.visible})
+    console.log("props: ", props, "Marker: ", marker, "event: ", event)
+    // console.log(event.proto.get('id'))
     // event.setOptions({strokeColor: '#ddd'})
-    event.map.strokeOpacity = 1;
-    this.setState({currentHood: event.id.toString(), opacity: 0.8, color: 'blue'})
+
   }
 
   render() {
@@ -51,6 +53,7 @@ export class MapContainer extends Component {
           strokeOpacity={this.state.opacity}
           strokeColor={this.state.color}
           onMouseover={this.showPolyLine}
+          // visible={this.state.visible}
         />
       )
     })
@@ -74,7 +77,11 @@ export class MapContainer extends Component {
           {polyLineElems}
           <Marker onClick={this.onMarkerClick}
             position={{lat: this.props.lat, lng: this.props.lng}}
-            name={'Current location'} />
+            name={'Current location'}
+            color={'red'}
+            onClick={this.markerClick}
+          />
+
         </Map>
     );
   }
