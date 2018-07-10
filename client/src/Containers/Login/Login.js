@@ -36,25 +36,23 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="row">
-          <div className={classes.LoginForm}>
-            <WindowHeader position="center">Login/SignUp</WindowHeader>
-            <form className={classes.Form}>
-              <TextInput
-                type="text"
-                placeholder="username"
-                name="username"
-                changeHandler={this.changeHandler} />
+      <div className={classes.LoginContainer}>
+        <div className={classes.LoginForm}>
+          <WindowHeader position="center">Login/SignUp</WindowHeader>
+          <form className={classes.Form}>
+            <TextInput
+              type="text"
+              placeholder="username"
+              name="username"
+              changeHandler={this.changeHandler} />
 
-              <TextInput
-                type="password"
-                placeholder="password"
-                name="password"
-                changeHandler={this.changeHandler} />
-            </form>
-            <Button clicked={this.loginHandler}>Log In</Button>
-          </div>
+            <TextInput
+              type="password"
+              placeholder="password"
+              name="password"
+              changeHandler={this.changeHandler} />
+          </form>
+          <Button clicked={this.loginHandler}>Log In</Button>
         </div>
       </div>
     )

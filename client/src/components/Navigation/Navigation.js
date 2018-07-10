@@ -8,20 +8,10 @@ import { Link } from 'react-router-dom';
   return (
     <div className={classes.Navbar}>
       <nav className="navbar navbar-expand-lg navbar-light">
-        {/* <div className="animated bounce"> */}
         <img src={image} height="100px" alt='logo'/>
-        {/* </div> */}
         <Link className="navbar-brand mx-auto d-block text-center order-0" to="/">
-          {/* <div className="animated zoomInUp"> */}
           <div className={classes.Title}>neighbors</div>
-          {/* </div> */}
         </Link>
-
-        {/* <a href="/" class="navbar-brand mx-auto d-block text-center order-0 order-md-1 w-25">Brand</a>       */}
-
-
-
-
         <button
           className="navbar-toggler"
           data-toggle="collapse"
@@ -63,8 +53,6 @@ import { Link } from 'react-router-dom';
         </div>
       </nav>
     </div>
-
   )
 }
-
 export default Navbar;
