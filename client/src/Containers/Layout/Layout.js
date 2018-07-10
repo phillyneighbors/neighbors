@@ -46,7 +46,8 @@ class Layout extends Component {
     return (
       <div>
         <NavBar username={username}/>
-        {/* <div className={classes.BackDrop} style={{backgroundImage: `url(${backgroundImage})`}}></div> */}
+        <br />
+        <div className={classes.BackDrop} style={{backgroundImage: `url(${backgroundImage})`}}></div>
         <main className={classes.Main}>
           <Route path="/" exact component={Login}/>
           <Route path="/chatRoom" exact component = {ChatRoom} />
