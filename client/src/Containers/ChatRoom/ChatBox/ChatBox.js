@@ -3,6 +3,7 @@ import moment from 'moment';
 import classes from './ChatBox.css';
 import Button from '../../../Components/UI/Button/Button';
 import Avatar from '../../../Components/Avatar/Avatar';
+import image from './Conversation-icon.png';
 import WindowHeader from '../../../Components/UI/WindowHeader/WindowHeader';
 import io from 'socket.io-client';
 class ChatBox extends Component {
@@ -117,7 +118,7 @@ class ChatBox extends Component {
         <br />
 
         <div className={classes.Window}>
-          <WindowHeader >{this.props.neighborhood} Chat</WindowHeader>
+          <WindowHeader ><img src={image} height="40px" width="50px" alt='chat0-logo'/>   {this.props.neighborhood}  Chat </WindowHeader>
           <div className={classes.ChatScroll} id='scrollable'>{messages}</div>
         </div>
         <div id="chatControls" className={classes.ChatControls}>
@@ -128,6 +129,7 @@ class ChatBox extends Component {
             ref={input => {this.textInput = input}}
           />
           <Button clicked={this.submitMessage}>Send</Button>
+          <br />
         </div>
       </div>
     )
