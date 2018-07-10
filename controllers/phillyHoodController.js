@@ -30,16 +30,4 @@ module.exports = {
       })
     })
   },
-
-  getAll: () => {
-    return new Promise((resolve, reject) => {
-      db.Hood.find()
-      .exec((err, hoods) => {
-        if (err) {
-          return reject(err)
-        }
-        resolve(hoods)
-      })
-    })
-  }
 }

@@ -8,6 +8,7 @@ const initialState = {
   geometry: [],
   locationId: '',
   hoods: [],
+  hoodOpts: [],
 }
 
 const reducer = (state = initialState, action) => {
@@ -36,6 +37,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         hoods: action.hoods,
+      }
+    case actionTypes.GIVE_HOOD_OPTS:
+      return {
+        ...state,
+        hoodOpts: action.hoods,
       }
     default:
       return state

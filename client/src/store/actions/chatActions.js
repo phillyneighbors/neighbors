@@ -23,6 +23,13 @@ export const submitHoodsCoords = hoods => {
   }
 }
 
+export const giveHoodOptions = hoods => {
+  return {
+    type: actionTypes.GIVE_HOOD_OPTS,
+    hoods,
+  }
+}
+
 // Async action to lookup neighborhood from geoCoords
 export const getLocation = (lat, lng) => {
   console.log("lat, lng ", lat, lng)
@@ -31,7 +38,11 @@ export const getLocation = (lat, lng) => {
     console.log("in here")
     googlePlaces.getNeighborhood(lat, lng)
     .then(result => {
-      dispatch(submitLocation(result, lat, lng));
+      console.log(result.hoods, result.foundOne)
+      if (result.foundOne) {
+        dispatch(submitLocation(result, lat, lng));
+      }
+      else { dispatch(giveHoodOptions(result.hoods))}
     })
     .catch(err => console.log(err))
 

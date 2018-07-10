@@ -35,6 +35,7 @@ class Login extends Component {
   }
 
   render() {
+
     return (
       <div className={classes.LoginContainer}>
         <div className={classes.LoginForm}>
@@ -62,6 +63,7 @@ class Login extends Component {
 const mapStateToProps = state => {
   return {
     loggedIn: state.loginReducer.loggedIn,
+    hoodOpts: state.chatReducer.hoodOpts,
   }
 }
 const mapDispatchToProps = dispatch => {
