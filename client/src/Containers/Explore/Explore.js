@@ -18,7 +18,7 @@ const Map = compose(
     (props =>
         <GoogleMap
             defaultZoom={8}
-            defaultCenter={{ lat: -34.397, lng: 150.644 }}
+            defaultCenter={{ lat: 39.9532, lng: -75.1677 }}
             onClick={props.onMapClick}
         >
             {props.isMarkerShown && <Marker position={props.markerPosition} />}
@@ -29,6 +29,14 @@ const Map = compose(
 export default class Explore extends Component {
     constructor(props) {
         super(props)
+
+        this.state = {
+            /// defaulted to center city
+            userLocation: {
+                lat: 39.9532,
+                lng: -75.1677
+            }
+        };
     }
 
     render() {
@@ -44,3 +52,4 @@ export default class Explore extends Component {
         );
     }
   }
+
