@@ -6,6 +6,7 @@ import WindowHeader from '../../Components/UI/WindowHeader/WindowHeader';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import TextInput from '../../Components/UI/TextInput/TextInput';
+import Modal from '../../Components/UI/Modal/Modal';
 import * as actionCreators from '../../store/actions/loginActions';
 
 
@@ -14,9 +15,15 @@ class Login extends Component {
   state = {
     username: '',
     password: '',
+    modal: false,
   }
 
   componentDidUpdate(prevProps) {
+    if (this.props.hoodOpts.length > 1 && !this.state.modal) {
+      this.setState({
+        modal: true,
+      })
+    }
     console.log(prevProps)
     if (this.props.loggedIn){
       this.props.history.push('/chatRoom')
@@ -34,10 +41,30 @@ class Login extends Component {
     this.props.login(this.state.username, this.state.password)
   }
 
-  render() {
+  closeModal = () => {
+    this.setState({
+      modal: false,
+    })
+  }
 
+  selectHood = () => {
+
+  }
+
+  render() {
+      // turn the hood options into buttons
+      const buttons = this.props.hoodOpts.map(hood => {
+        return <div className={classes.Center} style={{width: 100/this.props.hoodOpts.length + "%"}}><Button clicked={this.selectHood}>{hood}</Button></div>
+
+      })
+      const modal = <Modal show={this.state.modal} closeModal={this.closeModal}>
+        You are near {this.props.hoodOpts.length} neighborhoods. Select the one you would
+        like to join
+        <div className={classes.FlexRow}>{buttons}</div>
+      </Modal>
     return (
       <div className={classes.LoginContainer}>
+        {this.state.modal ? modal : null}
         <div className={classes.LoginForm}>
           <WindowHeader position="center">Login/SignUp</WindowHeader>
           <form className={classes.Form}>
