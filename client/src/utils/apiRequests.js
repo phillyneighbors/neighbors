@@ -15,6 +15,7 @@ export default {
       })
     })
   },
+
   postMessage: (message) => {
     console.log(message)
     return new Promise((resolve, reject) => {
@@ -47,13 +48,10 @@ export default {
       })
     })
   },
-  getHoodCoords: (name) => {
+
+  getHoodData: name => {
     return new Promise((resolve, reject) => {
-      axios.get('/api/phillyHood', {
-        params: {
-          mapname: name,
-        }
-      })
+      axios.get('/api/phillyHood', {params: {'properties.mapname': name}})
       .then(response => {
         console.log("RESPON: ",response.data)
         resolve(response.data.results)

@@ -3,19 +3,11 @@ import ChatBox from './ChatBox/ChatBox';
 import Aux from '../../Components/HOC/Auxil';
 import MapContainer from '../../Components/Map/Map';
 import { connect } from 'react-redux';
-import api from '../../utils/apiRequests';
 
 class ChatRoom extends Component {
   state = {
     currentHoodCoords: [],
     allHoodCoords: []
-  }
-  componentDidMount() {
-    // api.getHoodCoords(this.props.location)
-    // .then(coords => {
-    //   console.log(coords)
-    //   this.setState({hoodCoords: coords[0]})
-    // })
   }
 
   render() {
@@ -25,8 +17,8 @@ class ChatRoom extends Component {
           neighborhood={this.props.neighborhood}
           lat={this.props.lat}
           lng={this.props.lng}
-          hoodCoords={this.props.geometry}
-          allHoodCoords={this.props.hoods}
+          geometry={this.props.geometry}
+          // allHoodCoords={this.props.hoods}
         />
         <ChatBox
           neighborhood={this.props.neighborhood}
@@ -34,6 +26,7 @@ class ChatRoom extends Component {
           locationId={this.props.locationId}
           userId={this.props.userId}
           user={this.props.username}
+          messages={this.props.chat}
         />
       </Aux>
     )
@@ -49,7 +42,6 @@ const mapStateToProps = (state) => ({
   lng: state.chatReducer.lng,
   username: state.loginReducer.username,
   chat: state.chatReducer.chat,
-  hoods: state.chatReducer.hoods
 });
 
 const mapDispatchToProps = dispatch => {

@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import TextInput from '../../Components/UI/TextInput/TextInput';
 import Modal from '../../Components/UI/Modal/Modal';
-import * as actionCreators from '../../store/actions/loginActions';
+import * as loginActions from '../../store/actions/loginActions';
+import * as chatActions from '../../store/actions/chatActions';
 
 
 class Login extends Component {
@@ -16,15 +17,15 @@ class Login extends Component {
     username: '',
     password: '',
     modal: false,
+    userInteracted: false
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.hoodOpts.length > 1 && !this.state.modal) {
+  componentDidUpdate() {
+    if (this.props.hoodOpts.length > 1 && !this.state.modal && !this.state.userInteracted) {
       this.setState({
         modal: true,
       })
     }
-    console.log(prevProps)
     if (this.props.loggedIn){
       this.props.history.push('/chatRoom')
     }
@@ -42,16 +43,22 @@ class Login extends Component {
   }
 
   closeModal = () => {
+    console.log('closing modal')
     this.setState({
       modal: false,
+      userInteracted: true,
     })
   }
 
-  selectHood = () => {
-
+  selectHood = event => {
+    console.log(event.target)
+    this.props.getHoodData(event.target.innerHTML)
+    this.closeModal();
   }
 
+
   render() {
+    console.log("STATE: ", this.state.modal)
       // turn the hood options into buttons
       const buttons = this.props.hoodOpts.map(hood => {
         return <div className={classes.Center} style={{width: 100/this.props.hoodOpts.length + "%"}}><Button clicked={this.selectHood}>{hood}</Button></div>
@@ -95,7 +102,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    login: (username, password) => dispatch(actionCreators.userLogin(username, password))
+    login: (username, password) => dispatch(loginActions.userLogin(username, password)),
+    getHoodData: name => dispatch(chatActions.getHoodData(name))
   }
 }
 

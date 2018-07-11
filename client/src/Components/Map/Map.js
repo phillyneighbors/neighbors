@@ -14,18 +14,17 @@ export class MapContainer extends Component {
   }
 
   componentDidMount() {
-    console.log("MOunted")
-    const hoodsCoords = this.props.allHoodCoords;
-    const polyLinesArr = hoodsCoords.map((hood, i) => {
-      const geometry = [];
-      const name = hood.properties.mapname;
-      hood.geometry.coordinates[0][0].forEach(coordSet => {
-        geometry.push({lat: coordSet[1], lng: coordSet[0]})
-      });
-      return {geometry, name,};
-    })
-    this.setState({hoods: polyLinesArr})
+    // const polyLinesArr = this.props.geometry.map((hood, i) => {
+    //   const geometry = [];
+    //   const name = hood.properties.mapname;
+    //   hood.geometry.coordinates[0][0].forEach(coordSet => {
+    //     geometry.push({lat: coordSet[1], lng: coordSet[0]})
+    //   });
+    //   return {geometry, name,};
+    // })
+    // this.setState({hoods: polyLinesArr})
   }
+
   markerClick = (props, marker, event) => {
     marker.strokeColor = 'blue';
     this.setState({visible: !this.state.visible})
@@ -36,33 +35,37 @@ export class MapContainer extends Component {
   }
 
   render() {
-    console.log(this.state.opacity)
-    // console.log('rendering')
-    const polyLineElems = this.state.hoods.map((hood, i) => {
-      let strokeOpacity = 0.2
-      // if (i.toString() === this.state.currentHood){
-      //   console.log(i + ' === ' + this.state.currentHood)
-      //   strokeOpacity = 0.8
-      // }
-      return (
-        <Polyline
-          id = {i}
-          key = {i}
-          name = {hood.mapname}
-          path={hood.geometry}
-          strokeOpacity={this.state.opacity}
-          strokeColor={this.state.color}
-          onMouseover={this.showPolyLine}
-          // visible={this.state.visible}
-        />
-      )
-    })
+    // console.log(this.state.opacity)
+    // // console.log('rendering')
+    // const polyLineElems = this.props.geometry.map((hood, i) => {
+    //   let strokeOpacity = 0.2
+    //   // if (i.toString() === this.state.currentHood){
+    //   //   console.log(i + ' === ' + this.state.currentHood)
+    //   //   strokeOpacity = 0.8
+    //   // }
+    //   return (
+    //     <Polyline
+    //       id = {i}
+    //       key = {i}
+    //       name = {hood.mapname}
+    //       path={hood.geometry}
+    //       strokeOpacity={this.state.opacity}
+    //       strokeColor={this.state.color}
+    //       onMouseover={this.showPolyLine}
+    //       // visible={this.state.visible}
+    //     />
+    //   )
+    // })
 
-
+    // console.log(this.props.geometry)
     // we want to offeset the map a little bit so the outlined neighborhood
     // fits nicely next to the chatbox
     // const offSetLat = this.props.lat + .004;
     // const offSetLng = this.props.lng - .008;
+    const geometry = this.props.geometry.map(coordSet => {
+      return {lat: coordSet[1], lng: coordSet[0]}
+    })
+    console.log(geometry)
     return (
         <Map
           id="map"
@@ -73,8 +76,13 @@ export class MapContainer extends Component {
           data-state={this.state.opacity}
           styles={mapStyles}
           onClick={this.onMapClicked}>
-
-          {polyLineElems}
+          <Polyline
+            path={geometry}
+            strokeOpacity={0.7}
+            strokeColor={'blue'}
+            onMouseover={this.showPolyLine}
+          />
+          {/* {polyLineElems} */}
           <Marker onClick={this.onMarkerClick}
             position={{lat: this.props.lat, lng: this.props.lng}}
             name={'Current location'}

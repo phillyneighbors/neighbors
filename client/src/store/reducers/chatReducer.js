@@ -7,7 +7,6 @@ const initialState = {
   lng: '',
   geometry: [],
   locationId: '',
-  hoods: [],
   hoodOpts: [],
 }
 
@@ -34,14 +33,20 @@ const reducer = (state = initialState, action) => {
         locationId: action.locationId
       }
     case actionTypes.SUBMIT_HOODS:
+    console.log(action.geometry)
       return {
         ...state,
-        hoods: action.hoods,
+        geometry: action.hood.geometry,
+        neighborhood: action.hood.neighborhood,
+        chat: action.hood.chat.messages,
+        hoodOpts: []
       }
     case actionTypes.GIVE_HOOD_OPTS:
       return {
         ...state,
         hoodOpts: action.hoods,
+        lat: action.lat,
+        lng: action.lng,
       }
     default:
       return state

@@ -16,17 +16,19 @@ export const sendMessage = (message) => {
   };
 };
 
-export const submitHoodsCoords = hoods => {
+export const submitHoodsData = hood => {
   return {
     type: actionTypes.SUBMIT_HOODS,
-    hoods,
+    hood,
   }
 }
 
-export const giveHoodOptions = hoods => {
+export const giveHoodOptions = (hoods, lat, lng) => {
   return {
     type: actionTypes.GIVE_HOOD_OPTS,
     hoods,
+    lat,
+    lng,
   }
 }
 
@@ -40,23 +42,29 @@ export const getLocation = (lat, lng) => {
     .then(result => {
       console.log(result.hoods, result.foundOne)
       if (result.foundOne) {
-        dispatch(submitLocation(result, lat, lng));
+        dispatch(getHoodData(result.hoods[0]));
       }
-      else { dispatch(giveHoodOptions(result.hoods))}
+      else { dispatch(giveHoodOptions(result.hoods, lat, lng))}
     })
     .catch(err => console.log(err))
 
-    api.getHoodCoords()
-    .then(result => {
-      console.log(result)
-      dispatch(submitHoodsCoords(result))
-    })
-    .catch(err => {
-      console.log("error getting neighborhood name")
-      console.log(err)
-    });
-  };
+  }
 };
+
+  export const getHoodData = name => {
+    return dispatch => {
+      api.getHoodData(name)
+      .then(result => {
+        console.log(result)
+        dispatch(submitHoodsData(result))
+      })
+      .catch(err => {
+        console.log("error getting neighborhood name")
+        console.log(err)
+      });
+
+    }
+  }
 
 export const submitLocation = (location, lat, lng) => {
   return {
