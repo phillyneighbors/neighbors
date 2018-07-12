@@ -37,9 +37,22 @@ export default class Explore extends Component {
             userLocation: {
                 lat: 39.9532,
                 lng: -75.1677
-            }
+            },
+            weatherData: ""
         };
     }
+
+
+    async componentDidMount() {
+        const response = await fetch("https://api.openweathermap.org/data/2.5/weather?q=Philadelphia&units=imperial&appid=22e0e62f9c400a6d4c6299d5a811c050")
+        const json = await response.json() 
+        console.log(json);
+    
+        this.setState({
+          temp: json.main.temp,
+          humidity: json.main.humidity
+        })
+      }
 
     render() {
         return (
@@ -57,22 +70,24 @@ export default class Explore extends Component {
                     <br />
                     <div className="row">
                         <div className="col-md">
-                            <div class="card">
-                                <div class="card-body">
-                                    row 2 column 1 CARD
+                            <div className="card">
+                                <div className="card-body">
+                                    {this.state.temp}
+                              
+                             
                                 </div>
                             </div>
                         </div>
                         <div className="col-md">
-                            <div class="card">
-                                <div class="card-body">
-                                    row 2 column 2 CARD
-                                        </div>
+                            <div className="card">
+                                <div className="card-body">
+                                {this.state.humidity}
+                                </div>
                             </div>
                         </div>
                         <div className="col-md">
-                            <div class="card">
-                                <div class="card-body">
+                            <div className="card">
+                                <div className="card-body">
                                     row 2 column 3 CARD
                                         </div>
                             </div>
@@ -81,17 +96,10 @@ export default class Explore extends Component {
 
                     <br />
 
-                    {/* <div className="row">
-                                <div className="col-md">
-                                    <p className="row-two">
-                                        row 3 column 1
-                                    </p>
-                                </div>
-                            </div>   */}
 
-
+</div>
                 </div>
-            </div>
+            
 
         );
     }
