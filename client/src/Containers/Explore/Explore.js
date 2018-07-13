@@ -1,43 +1,8 @@
 import React, { Component } from 'react';
-import { compose, withProps, withStateHandlers } from "recompose";
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import './Explore.css';
 import classes from './Explore.css';
-import Button from '../../Components/UI/Button/Button'
 
-// const Map = compose(
-//     withProps({
-//         googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBXYH0-ocvoZnzu1HrgZaBJQ1apvBclUt0",
-//         loadingElement: <div style={{ height: `100%` }} />,
-//         containerElement: <div style={{ height: `400px` }} />,
-//         mapElement: <div style={{ height: `100%` }} />
-//     }),
-//     withStateHandlers(() => ({
-//         isMarkerShown: false,
-//         markerPosition: null,
-//         userLocation: {
-//             lat: 39.9509,
-//             lng: -75.1575
-//         }
-//     }), {
-//             onMapClick: ({ isMarkerShown }) => (e) => ({
-//                 markerPosition: e.latLng,
-//                 isMarkerShown: true
-//             })
-//         }),
-//     withScriptjs,
-//     withGoogleMap
-// )(props =>
-//     <GoogleMap
-//         defaultZoom={15}
-//         // defaultCenter={{ lat: 39.9509, lng: -75.1575 }}
-//         // defaultCenter={{ lat: userLocation.lat, lng: userLocation.lng }}
-//         defaultCenter={{ lat: props.userLocation.lat, lng: props.userLocation.lng }}
-//         onClick={props.onMapClick}
-//     >
-//         {props.isMarkerShown && <Marker position={props.markerPosition} />}
-//     </GoogleMap>
-// )
 const GoogleMapsWrapper = withScriptjs(withGoogleMap(props => {
     const { onMapMounted, ...otherProps } = props;
     return <GoogleMap {...otherProps} ref={c => {
@@ -67,11 +32,6 @@ class Explore extends Component {
         this.getGeoLocation();
         console.log(this.state);
     }
-
-    // componentWillUpdate = () => {
-    //     this.getGeoLocation()
-    //     console.log(this.state);
-    // }
 
     getGeoLocation = () => {
         console.log("1")
@@ -124,13 +84,6 @@ class Explore extends Component {
                         </div>
                     </div>
                 </div>
-
-                {/* <Map
-                    googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXYH0-ocvoZnzu1HrgZaBJQ1apvBclUt0"
-                    loadingElement={<div style={{ height: `100%` }} />}
-                    containerElement={<div style={{ height: `300px`, width: `100%`, marginBottom: `200px` }} />}
-                    mapElement={<div style={{ height: `100%` }} />}
-                /> */}
                 {this.state.locationLoaded ?
                     <GoogleMapsWrapper
                         googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXYH0-ocvoZnzu1HrgZaBJQ1apvBclUt0"
@@ -143,17 +96,10 @@ class Explore extends Component {
                         onMapMounted={this.handleMapMounted}
                         onClick={this.onMapClick}>
                         <Marker position={this.state.markerPosition} />
-                    </GoogleMapsWrapper>:null
+                    </GoogleMapsWrapper> : null
                 }
-
-
             </div>
-
-
-
-
         )
-
     }
 }
 export default Explore;
