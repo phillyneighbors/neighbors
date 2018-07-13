@@ -2,10 +2,12 @@
   background-color: #f49e75 !important;
   color: #f49e75;
   display: block;
-  margin-bottom: 50px;
+  bottom: 50;
+  margin-bottom: 500px;
   z-index: 2;
-  position: fixed;
+  position: absolute;
   width: 100%;
+
 }
 
 .Title {
@@ -86,4 +88,27 @@
             filter: blur(0);
     opacity: 1;
   }
+}
+
+
+@media only screen and (max-width: 500px) {
+  .Title {
+    text-align: center;
+    font-family: 'Work Sans', sans-serif;
+    color: whitesmoke;
+    font-size: 20px;
+    float: none;
+    display: block;
+    -webkit-animation: focus-in-contract-bck 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: focus-in-contract-bck 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  }
+
+  .NavLink {
+    font-family: 'Work Sans', sans-serif;
+    color: whitesmoke !important;
+    font-size: 10px;
+    text-align: right;
+    float: left;
+  }
+  
 }

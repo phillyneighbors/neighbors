@@ -47,7 +47,9 @@ class ChatBox extends Component {
   }
 
   scrollToBottom = () => {
-    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    if (this.messagesEnd) {
+      this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    }
   }
 
   updateMessage = (event) => {
@@ -94,8 +96,8 @@ class ChatBox extends Component {
 
   render() {
     let messages = []
-    if (this.state.messages) {
-      messages = this.state.messages.map((message, i) => {
+    if (this.props.messages) {
+      messages = this.props.messages.map((message, i) => {
         console.log(message)
         let messageClass = (message.user === this.props.user) ?
           classes.Message : [classes.Message, classes.MessageRecv].join(' ');

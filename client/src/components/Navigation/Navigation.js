@@ -21,7 +21,7 @@ import { Link } from 'react-router-dom';
         aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" />
         </button>
-
+        
 
         <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
           <ul className="navbar-nav">

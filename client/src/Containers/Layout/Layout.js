@@ -54,6 +54,7 @@ class Layout extends Component {
           <Route path="/explore" exact component = {Explore} />
           <Route path="/about" exact component = {About} />
         </main>
+        <br />
         <Footer />
       </div>
     )

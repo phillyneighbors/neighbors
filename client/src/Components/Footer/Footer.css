@@ -1,4 +1,17 @@
 .f00ter {
     background-color: #f7f7f8 !important;
-    color: rgb(134, 130, 130)
+    color: rgb(134, 130, 130);
+    top: 25px;
+    padding-top: 0rem!important; 
+
 }
+
+
+@media only screen and (max-width: 500px) {
+    .f00ter {
+        background-color: #f7f7f8 !important;
+        color: rgb(134, 130, 130);
+        font-size: 12px;
+        margin-top: 1rem!important; 
+    }
+}    

@@ -106,11 +106,12 @@ the server and the google maps/places/geoCoder API
 ## Additional Notes
 ### Todo
 
-1. S
 1. ~~Make the chat "live" with socket.io?~~
 1. Mobile/Responsive design
 1. Place pins on the map for each active person ?? actually, is this desirable?
-1. Profile page? About page? Welcome Page
+1. Profile page?
+1. About page?
+1. Welcome Page?
 1. Delay page load until image loads and neighborhood is fetched
 1. ~~Avatars in the chat~~
 1. ~~Add event handler to chatbox to submit message on Enter keypress~~
@@ -118,7 +119,7 @@ the server and the google maps/places/geoCoder API
 1. Encrypt password with bcrypt
 1. ~~show timestamp in chat~~
 1. Persist Redux State
-1. scroll chatbox
+1. ~~scroll chatbox~~
 1. ~~fav.icon~~
 
 ### Bugs

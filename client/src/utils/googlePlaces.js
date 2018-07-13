@@ -21,17 +21,24 @@ export default {
         const potentialHoods = response.data.results.map(hood => {
           return hood.name;
         });
-        axios.get('/api/phillyHood', {params: {neighborhoods: potentialHoods.join(",")}})
-        .then(response => {
+        console.log(potentialHoods);
+        if (potentialHoods.length > 1) {
+          console.log('found 2');
+          return resolve({hoods: potentialHoods, foundOne: false})
+        }
+        else {
+          axios.get('/api/phillyHood', {properties: {name: potentialHoods[0]}})
+          .then(response => {
             // this location already exists
             console.log("the location already exiss")
             console.log(response);
-            return resolve(response.data.results);
-        })
-        .catch(err => {
-          console.log("ERROR GETTING PLACES: ", err)
-          reject(err)
-        });
+            return resolve(response.data.results, true);
+          })
+          .catch(err => {
+            console.log("ERROR GETTING PLACES: ", err)
+            reject(err)
+          });
+        }
       });
     });
   }
