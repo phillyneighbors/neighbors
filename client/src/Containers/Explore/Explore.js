@@ -3,6 +3,7 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-map
 import classes from './Explore.css';
 import Button from '../../Components/UI/Button/Button'
 import Modal from '../../Components/UI/Modal/Modal'
+import TextInput from '../../Components/UI/TextInput/TextInput'
 
 const GoogleMapsWrapper = withScriptjs(withGoogleMap(props => {
     const { onMapMounted, ...otherProps } = props;
@@ -65,9 +66,9 @@ class Explore extends Component {
 
     mapRef = null;
 
-    handleMapMounted = (c) => {
-        if (!c || this.mapRef) return;
-        this.mapRef = c;
+    handleMapMounted = (r) => {
+        if (!r || this.mapRef) return;
+        this.mapRef = r;
         console.log('Ref set @ ' + Date.now());
     };
 
@@ -83,7 +84,6 @@ class Explore extends Component {
         this.setState({
             modal: true
         })
-
     }
 
     closeModal = () => {
@@ -93,6 +93,13 @@ class Explore extends Component {
         })
     }
 
+    changeHandler = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value,
+        })
+        console.log(event.target.value);
+    }
+
     render() {
 
         return (
@@ -100,6 +107,12 @@ class Explore extends Component {
                 <Modal show={this.state.modal} clicked={this.openModal} closeModal={this.closeModal}>
                     <Button clicked={this.closeModal}>Close</Button>
                     Lorum Ipsum Dolor
+                    <TextInput
+                        type="text"
+                        placeholder="username"
+                        name="username"
+                        changeHandler={this.changeHandler} 
+                    />
                 </Modal>
                 <div className={classes.weatherWidget}>
                     <div className="panel panel-default">
