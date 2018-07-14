@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import classes from './Explore.css';
 import Button from '../../Components/UI/Button/Button'
+import Modal from '../../Components/UI/Modal/Modal'
 
 const GoogleMapsWrapper = withScriptjs(withGoogleMap(props => {
     const { onMapMounted, ...otherProps } = props;
@@ -16,6 +17,7 @@ class Explore extends Component {
         super(props)
         this.state = {
             markers: [],
+            modal: false,
             isMarkerShown: false,
             markerPosition: null,
             locationLoaded: false,
@@ -69,13 +71,36 @@ class Explore extends Component {
         console.log('Ref set @ ' + Date.now());
     };
 
-    onButtonClick = () => {
-        
+    closeModal = () => {
+        console.log('closing modal')
+        this.setState({
+            modal: false
+        })
+    }
+
+    openModal = () => {
+        console.log('Opening modal')
+        this.setState({
+            modal: true
+        })
+
+    }
+
+    closeModal = () => {
+        console.log('Closing modal')
+        this.setState({
+            modal: false
+        })
     }
 
     render() {
+
         return (
             <div className="container-fluid">
+                <Modal show={this.state.modal} clicked={this.openModal} closeModal={this.closeModal}>
+                    <Button clicked={this.closeModal}>Close</Button>
+                    Lorum Ipsum Dolor
+                </Modal>
                 <div className={classes.weatherWidget}>
                     <div className="panel panel-default">
                         <div className="panel-heading">
@@ -89,7 +114,7 @@ class Explore extends Component {
                     </div>
                 </div>
                 <div>
-                    <Button onClick={this.onButtonClick}>Custom Marker</Button>
+                    <Button clicked={this.openModal}>Custom Marker</Button>
                 </div>
                 {this.state.locationLoaded ?
                     <GoogleMapsWrapper
