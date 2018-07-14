@@ -50,58 +50,80 @@ export default class Explore extends Component {
     
         this.setState({
           temp: json.main.temp,
-          humidity: json.main.humidity
+          humidity: json.main.humidity,
+          minTemp: json.main.temp_min,
+          maxTemp: json.main.temp_max,
+
         })
       }
 
     render() {
         return (
-            <div className={classes.explore}>
-                <div className="container">
+                <div className="container-fluid">
+                <div className={classes.weatherWidget}>
+                
+                    <div className="panel panel-default">
+                        <div className="panel-heading">
+                            <h3 className="panel-title">current weather</h3>
+                        </div>
+                        <div className="panel-body">
+                            <p> Temp: {this.state.temp} </p>
+                            <p> Humidity: {this.state.humidity} </p>
+                            <p> Today's High: {this.state.maxTemp} </p>
+                            <p> Today's Low: {this.state.minTemp} </p>
+                            
+                        </div>
+                        </div>
+
+
+                    <div className="panel panel-default">
+                        <div className="panel-heading">
+                            <h3 className="panel-title">current weather</h3>
+                        </div>
+                        <div className="panel-body">
+                            <p> Temp: {this.state.temp} </p>
+                            <p> Humidity: {this.state.humidity} </p>
+                            <p> Today's High: {this.state.maxTemp} </p>
+                            <p> Today's Low: {this.state.minTemp} </p>
+                            
+                        </div>
+                        </div>
+
+
+                    <div className="panel panel-default">
+                        <div className="panel-heading">
+                            <h3 className="panel-title">current weather</h3>
+                        </div>
+                        <div className="panel-body">
+                            <p> Temp: {this.state.temp} </p>
+                            <p> Humidity: {this.state.humidity} </p>
+                            <p> Today's High: {this.state.maxTemp} </p>
+                            <p> Today's Low: {this.state.minTemp} </p>
+                            
+                        </div>
+                        </div>                                            
+                </div>
+
+                    <h3 className="map-title"> 
+            
+                    Explore the City below! 
+                    
+                    </h3>
+
                     <Map
                         googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXYH0-ocvoZnzu1HrgZaBJQ1apvBclUt0"
                         loadingElement={<div style={{ height: `100%` }} />}
-                        containerElement={<div style={{ height: `300px` }} />}
+                        containerElement={<div style={{ height: `300px`, width: `100%`, marginBottom: `200px`  }} />}
                         mapElement={<div style={{ height: `100%` }} />}
                     />
-                    <div className="row">
-                    </div>
 
-                    <br />
-                    <div className="row">
-                        <div className="col-md">
-                            <div className="card">
-                                <div className="card-body">
-                                    {this.state.temp}
-                              
-                             
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md">
-                            <div className="card">
-                                <div className="card-body">
-                                {this.state.humidity}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md">
-                            <div className="card">
-                                <div className="card-body">
-                                    row 2 column 3 CARD
-                                        </div>
-                            </div>
-                        </div>
-                    </div>
+            </div>
 
-                    <br />
+                
 
-
-</div>
-                </div>
-            
-
-        );
+                        
+        )
+        
     }
 }
 
