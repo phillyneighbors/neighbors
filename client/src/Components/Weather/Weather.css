@@ -1,0 +1,11 @@
+.weatherWidget {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    -ms-grid-row-align: center;
+    margin-top: 150px;
+    margin-bottom: 150px;
+    margin-right: 20px;
+    margin-left: 20px;
+    width: 100%
+}

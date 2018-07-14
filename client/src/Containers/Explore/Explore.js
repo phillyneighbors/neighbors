@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import './Explore.css';
 import classes from './Explore.css';
+import WeatherWidget from '../../Components/Weather/Weather'
+
 
 const GoogleMapsWrapper = withScriptjs(withGoogleMap(props => {
     const { onMapMounted, ...otherProps } = props;
@@ -24,27 +26,18 @@ class Explore extends Component {
                 lng: 32
             }
         };
+
         this.getGeoLocation = this.getGeoLocation.bind(this);
     }
 
 
     async componentDidMount() {
-        const response = await fetch("https://api.openweathermap.org/data/2.5/weather?q=Philadelphia&units=imperial&appid=22e0e62f9c400a6d4c6299d5a811c050")
-        const json = await response.json() 
-        console.log(json);
-    
-        this.setState({
-          temp: json.main.temp,
-          humidity: json.main.humidity,
-          minTemp: json.main.temp_min,
-          maxTemp: json.main.temp_max,
-
-        })
 
         console.log('Mounted @ ' + Date.now());
         this.getGeoLocation();
         console.log(this.state);
       }
+  
 
     getGeoLocation = () => {
         console.log("1")
@@ -82,28 +75,12 @@ class Explore extends Component {
         console.log('Ref set @ ' + Date.now());
     };
 
+
+
     render() {
         return (
             <div className="container-fluid">
-                <div className={classes.weatherWidget}>
-                    <div className="panel panel-default">
-                        <div className="panel-heading">
-                            <h3 className="panel-title">Explore the Current Weather</h3>
-                        </div>
-                        <div className="panel-body">
-                            <p> Temp: {this.state.temp} </p>
-                            <p> Humidity: {this.state.humidity} </p>
-                            <p> Today's High: {this.state.maxTemp} </p>
-                            <p> Today's Low: {this.state.minTemp} </p>
-                        </div>
-
-                        
-                    <h3 className="map-title">       
-                        Explore the City below!         
-                    </h3>
-
-                    </div>
-                </div>
+                <WeatherWidget />
                 {this.state.locationLoaded ?
                     <GoogleMapsWrapper
                         googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXYH0-ocvoZnzu1HrgZaBJQ1apvBclUt0"
@@ -119,6 +96,7 @@ class Explore extends Component {
                     </GoogleMapsWrapper> : null
                 }
             </div>
+            
         )
     }
 }
