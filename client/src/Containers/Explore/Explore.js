@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
-import './Explore.css';
 import classes from './Explore.css';
+import Button from '../../Components/UI/Button/Button'
 
 const GoogleMapsWrapper = withScriptjs(withGoogleMap(props => {
     const { onMapMounted, ...otherProps } = props;
@@ -69,6 +69,10 @@ class Explore extends Component {
         console.log('Ref set @ ' + Date.now());
     };
 
+    onButtonClick = () => {
+        
+    }
+
     render() {
         return (
             <div className="container-fluid">
@@ -83,6 +87,9 @@ class Explore extends Component {
 
                         </div>
                     </div>
+                </div>
+                <div>
+                    <Button onClick={this.onButtonClick}>Custom Marker</Button>
                 </div>
                 {this.state.locationLoaded ?
                     <GoogleMapsWrapper
