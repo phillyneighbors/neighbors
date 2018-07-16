@@ -4,7 +4,6 @@ import './Explore.css';
 import classes from './Explore.css';
 import WeatherWidget from '../../Components/Weather/Weather'
 
-
 const GoogleMapsWrapper = withScriptjs(withGoogleMap(props => {
     const { onMapMounted, ...otherProps } = props;
     return <GoogleMap {...otherProps} ref={c => {
@@ -24,11 +23,14 @@ class Explore extends Component {
             userLocation: {
                 lat: 32,
                 lng: 32
-            }
+        }
         };
 
         this.getGeoLocation = this.getGeoLocation.bind(this);
     }
+
+
+    
 
 
     async componentDidMount() {
@@ -80,7 +82,10 @@ class Explore extends Component {
     render() {
         return (
             <div className="container-fluid">
-                <WeatherWidget />
+                
+                    <WeatherWidget />
+
+                    
                 {this.state.locationLoaded ?
                     <GoogleMapsWrapper
                         googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXYH0-ocvoZnzu1HrgZaBJQ1apvBclUt0"
@@ -95,6 +100,8 @@ class Explore extends Component {
                         <Marker position={this.state.markerPosition} />
                     </GoogleMapsWrapper> : null
                 }
+
+                
             </div>
             
         )
