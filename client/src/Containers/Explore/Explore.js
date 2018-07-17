@@ -8,6 +8,7 @@ import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng,
 } from 'react-places-autocomplete';
+import WeatherWidget from '../../Components/Weather/Weather'
 
 const GoogleMapsWrapper = withScriptjs(withGoogleMap(props => {
     const { onMapMounted, ...otherProps } = props;
@@ -36,14 +37,17 @@ class Explore extends Component {
             markerType: null,
             openMarkerKeys: new Set()
         };
+
         this.getGeoLocation = this.getGeoLocation.bind(this);
     }
 
-    componentDidMount = () => {
+    async componentDidMount() {
+
         console.log('Mounted @ ' + Date.now());
         this.getGeoLocation();
         console.log(this.state);
-    }
+      }
+  
 
     getGeoLocation = () => {
         console.log("1")
@@ -133,6 +137,8 @@ class Explore extends Component {
         })
     }
 
+
+
     render() {
         return (
             <div className="container-fluid">
@@ -179,6 +185,9 @@ class Explore extends Component {
                 <div>
                     <Button clicked={this.openModal}>Custom Marker</Button>
                 </div>
+                
+                    <WeatherWidget />
+                    
                 {this.state.locationLoaded ?
                     <GoogleMapsWrapper
                         googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXYH0-ocvoZnzu1HrgZaBJQ1apvBclUt0&libraries=places"
@@ -206,7 +215,10 @@ class Explore extends Component {
                         <Marker position={this.state.markerPosition} />
                     </GoogleMapsWrapper> : null
                 }
+
+                
             </div>
+            
         )
     }
 }

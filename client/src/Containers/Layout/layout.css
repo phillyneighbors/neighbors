@@ -5,6 +5,7 @@
   font-family: 'Work Sans', sans-serif;
   box-sizing: border-box;
   height: 90vh;
+  overflow-x: hidden;
 }
 
 .BackDrop {
