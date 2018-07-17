@@ -4,6 +4,10 @@ import classes from './Explore.css';
 import Button from '../../Components/UI/Button/Button'
 import Modal from '../../Components/UI/Modal/Modal'
 import TextInput from '../../Components/UI/TextInput/TextInput'
+import PlacesAutocomplete, {
+    geocodeByAddress,
+    getLatLng,
+} from 'react-places-autocomplete';
 
 const GoogleMapsWrapper = withScriptjs(withGoogleMap(props => {
     const { onMapMounted, ...otherProps } = props;
@@ -25,7 +29,8 @@ class Explore extends Component {
             userLocation: {
                 lat: 32,
                 lng: 32
-            }
+            },
+            newMarkerAddress: null
         };
         this.getGeoLocation = this.getGeoLocation.bind(this);
     }
@@ -57,26 +62,21 @@ class Explore extends Component {
         }
     }
 
+    // mapRef = null;
+
+    // handleMapMounted = (r) => {
+    //     if (!r || this.mapRef) return;
+    //     this.mapRef = r;
+    //     console.log('Ref set @ ' + Date.now());
+    // };
+
     onMapClick = (event) => {
+        console.log(event.Ha.view.google.maps);
         this.setState({
             markerPosition: event.latLng,
             isMarkerShown: true
         })
-    }
-
-    mapRef = null;
-
-    handleMapMounted = (r) => {
-        if (!r || this.mapRef) return;
-        this.mapRef = r;
-        console.log('Ref set @ ' + Date.now());
-    };
-
-    closeModal = () => {
-        console.log('closing modal')
-        this.setState({
-            modal: false
-        })
+        // console.log(this.state.markerPosition);
     }
 
     openModal = () => {
@@ -95,24 +95,40 @@ class Explore extends Component {
 
     changeHandler = (event) => {
         this.setState({
-            [event.target.name]: event.target.value,
+            newMarkerAddress: event.target.value,
         })
-        console.log(event.target.value);
+        console.log(this.state.newMarkerAddress);
+    }
+
+    createMarker = () => {
+        console.log('Marker created @ ' + Date.now());
+        geocodeByAddress(this.state.newMarkerAddress)
+            .then(results => getLatLng(results[0]))
+            .then(latLng => this.setState(state => ({
+                newMarkerAddress: "",
+                markers: state.markers.concat(latLng)
+            })))
+            .then(() => { console.log(this.state); })
+            .catch(error => console.error('Error', error));
     }
 
     render() {
-
         return (
             <div className="container-fluid">
                 <Modal show={this.state.modal} clicked={this.openModal} closeModal={this.closeModal}>
-                    <Button clicked={this.closeModal}>Close</Button>
-                    Lorum Ipsum Dolor
-                    <TextInput
-                        type="text"
-                        placeholder="username"
-                        name="username"
-                        changeHandler={this.changeHandler} 
-                    />
+                    <Button clicked={this.closeModal}>Cancel</Button>
+                    <Button type="submit" clicked={this.createMarker}>Create Marker</Button>
+                    <br />
+                    Enter an address!
+                    <form>
+                        <TextInput
+                            id="autocomplete"
+                            type="text"
+                            placeholder="Enter event address"
+                            name="address"
+                            changeHandler={this.changeHandler}
+                        />
+                    </form>
                 </Modal>
                 <div className={classes.weatherWidget}>
                     <div className="panel panel-default">
@@ -131,7 +147,7 @@ class Explore extends Component {
                 </div>
                 {this.state.locationLoaded ?
                     <GoogleMapsWrapper
-                        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXYH0-ocvoZnzu1HrgZaBJQ1apvBclUt0"
+                        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXYH0-ocvoZnzu1HrgZaBJQ1apvBclUt0&libraries=places"
                         loadingElement={<div style={{ height: `100%` }} />}
                         containerElement={<div style={{ height: `300px`, width: `100%`, marginBottom: `200px` }} />}
                         mapElement={<div style={{ height: `100%` }} />}
@@ -140,6 +156,9 @@ class Explore extends Component {
                         defaultCenter={this.state.userLocation}
                         onMapMounted={this.handleMapMounted}
                         onClick={this.onMapClick}>
+                        {this.state.markers.map((marker) => {
+                            return (<Marker key={marker.lat + ',' + marker.lng} position={marker} />)
+                        })}
                         <Marker position={this.state.markerPosition} />
                     </GoogleMapsWrapper> : null
                 }

@@ -16,6 +16,21 @@ export default {
     })
   },
 
+  // postMarker: (marker) => {
+  //   console.log(marker)
+  //   return new Promise((resolve, reject) => {
+  //     axios.post('/api/marker', marker)
+  //     .then((response) => {
+  //       console.log("MARKER POSTED!")
+  //       console.log(response)
+  //       resolve(response)
+  //     })
+  //     .catch((err) => {
+  //       reject(err)
+  //     })
+  //   })
+  // },
+
   postMessage: (message) => {
     console.log(message)
     return new Promise((resolve, reject) => {
