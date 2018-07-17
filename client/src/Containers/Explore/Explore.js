@@ -32,6 +32,8 @@ class Explore extends Component {
             },
             newMarkerAddress: null,
             isOpen: false,
+            markerName: null,
+            markerType: null,
             openMarkerKeys: new Set()
         };
         this.getGeoLocation = this.getGeoLocation.bind(this);
@@ -64,21 +66,12 @@ class Explore extends Component {
         }
     }
 
-    // mapRef = null;
-
-    // handleMapMounted = (r) => {
-    //     if (!r || this.mapRef) return;
-    //     this.mapRef = r;
-    //     console.log('Ref set @ ' + Date.now());
-    // };
-
     onMapClick = (event) => {
         console.log(event.Ha.view.google.maps);
         this.setState({
             markerPosition: event.latLng,
             isMarkerShown: true
         })
-        // console.log(this.state.markerPosition);
     }
 
     openModal = () => {
@@ -97,21 +90,23 @@ class Explore extends Component {
 
     changeHandler = (event) => {
         this.setState({
-            newMarkerAddress: event.target.value,
+            [event.target.name]: event.target.value,
         })
-        console.log(this.state.newMarkerAddress);
     }
 
     createMarker = () => {
         console.log('Marker created @ ' + Date.now());
         geocodeByAddress(this.state.newMarkerAddress)
-        .then(results => getLatLng(results[0]))
+        .then(results => {
+            console.log('RESULTS:', results);
+            return getLatLng(results[0])
+        })
         .then(latLng => {
             const marker = {
                 key: latLng.lat + ',' + latLng.lng,
-                name: 'Somewhere',
                 latLng,
-                type: 'TBD'
+                markerName: this.state.markerName,
+                markerType: this.state.markerType
             };  
             this.setState(state => ({
                 newMarkerAddress: "",
@@ -119,7 +114,10 @@ class Explore extends Component {
             }))
             // save marker to server HERE - postMarker(marker)
         })
-        .then(() => { console.log(this.state); })
+        .then(() => { 
+            console.log(this.state);
+            this.closeModal(); 
+        })
         .catch(error => console.error('Error', error));
     }
 
@@ -142,15 +140,28 @@ class Explore extends Component {
                     <Button clicked={this.closeModal}>Cancel</Button>
                     <Button type="submit" clicked={this.createMarker}>Create Marker</Button>
                     <br />
-                    Enter an address!
+                    
                     <form>
+                    Enter an address!
                         <TextInput
-                            id="autocomplete"
                             type="text"
                             placeholder="Enter event address"
-                            name="address"
+                            name="newMarkerAddress"
                             changeHandler={this.changeHandler}
-                            // value={this.state.newMarkerAddress} CHECK WITH GROUP
+                        />
+                    Name:
+                        <TextInput
+                            type="text"
+                            placeholder="Name"
+                            name="markerName"
+                            changeHandler={this.changeHandler}
+                        />
+                    Type:
+                        <TextInput
+                            type="text"
+                            placeholder="Type"
+                            name="markerType"
+                            changeHandler={this.changeHandler}
                         />
                     </form>
                 </Modal>
@@ -162,7 +173,6 @@ class Explore extends Component {
                         <div className="panel-body">
                             <p> Temperature: {this.state.temp} </p>
                             <p> Humidity: {this.state.humidity} </p>
-
                         </div>
                     </div>
                 </div>
@@ -176,16 +186,18 @@ class Explore extends Component {
                         containerElement={<div style={{ height: `300px`, width: `100%`, marginBottom: `200px` }} />}
                         mapElement={<div style={{ height: `100%` }} />}
                         defaultZoom={15}
-                        // defaultCenter={{ lat: 25.0391667, lng: 121.525 }}
                         defaultCenter={this.state.userLocation}
                         onMapMounted={this.handleMapMounted}
                         onClick={this.onMapClick}>
                         {this.state.markers.map((marker) => {
                             return (
-                                <Marker key={marker.key} position={marker.latLng} onClick={() => this.onMarkerClick(marker)}>
+                                <Marker key={marker.key} position={marker.latLng} name={marker.markerName} type={marker.markerType} onClick={() => this.onMarkerClick(marker)}>
                                 {this.state.openMarkerKeys.has(marker.key) ? (
                                     <InfoWindow>
-                                        <p>{marker.name}</p>
+                                        <div>
+                                            <p>Name: {marker.markerName}</p>
+                                            <p>Type: {marker.markerType}</p>
+                                        </div>
                                     </InfoWindow>
                                 ) : null}
                                 </Marker>
@@ -200,12 +212,13 @@ class Explore extends Component {
 }
 export default Explore;
 
+
+// ToDo:
 // Push the markers to the database
 // Code to push saved markers from db to state on start
 // Job that runs on the server:
 // Like button with onClick handler that calls the server
 //  Look at markers
 //  Look their likes
-//  Delete ones with no likes within 48 hours
+//  Delete markers that haven't been "liked" within the last 48 hours
 
-// 
