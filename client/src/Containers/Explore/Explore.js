@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 import classes from './Explore.css';
 import Button from '../../Components/UI/Button/Button'
 import Modal from '../../Components/UI/Modal/Modal'
@@ -30,7 +30,9 @@ class Explore extends Component {
                 lat: 32,
                 lng: 32
             },
-            newMarkerAddress: null
+            newMarkerAddress: null,
+            isOpen: false,
+            openMarkerKeys: new Set()
         };
         this.getGeoLocation = this.getGeoLocation.bind(this);
     }
@@ -103,13 +105,34 @@ class Explore extends Component {
     createMarker = () => {
         console.log('Marker created @ ' + Date.now());
         geocodeByAddress(this.state.newMarkerAddress)
-            .then(results => getLatLng(results[0]))
-            .then(latLng => this.setState(state => ({
+        .then(results => getLatLng(results[0]))
+        .then(latLng => {
+            const marker = {
+                key: latLng.lat + ',' + latLng.lng,
+                name: 'Somewhere',
+                latLng,
+                type: 'TBD'
+            };  
+            this.setState(state => ({
                 newMarkerAddress: "",
-                markers: state.markers.concat(latLng)
-            })))
-            .then(() => { console.log(this.state); })
-            .catch(error => console.error('Error', error));
+                markers: state.markers.concat(marker)
+            }))
+            // save marker to server HERE - postMarker(marker)
+        })
+        .then(() => { console.log(this.state); })
+        .catch(error => console.error('Error', error));
+    }
+
+    onMarkerClick = (marker) => {
+        const key = marker.key;
+        this.setState(state => {
+            const openMarkerKeys = state.openMarkerKeys;
+
+            if (openMarkerKeys.has(key)) openMarkerKeys.delete(key)
+            else openMarkerKeys.add(key)
+
+            return { openMarkerKeys };
+        })
     }
 
     render() {
@@ -127,6 +150,7 @@ class Explore extends Component {
                             placeholder="Enter event address"
                             name="address"
                             changeHandler={this.changeHandler}
+                            // value={this.state.newMarkerAddress} CHECK WITH GROUP
                         />
                     </form>
                 </Modal>
@@ -157,7 +181,15 @@ class Explore extends Component {
                         onMapMounted={this.handleMapMounted}
                         onClick={this.onMapClick}>
                         {this.state.markers.map((marker) => {
-                            return (<Marker key={marker.lat + ',' + marker.lng} position={marker} />)
+                            return (
+                                <Marker key={marker.key} position={marker.latLng} onClick={() => this.onMarkerClick(marker)}>
+                                {this.state.openMarkerKeys.has(marker.key) ? (
+                                    <InfoWindow>
+                                        <p>{marker.name}</p>
+                                    </InfoWindow>
+                                ) : null}
+                                </Marker>
+                            )
                         })}
                         <Marker position={this.state.markerPosition} />
                     </GoogleMapsWrapper> : null
@@ -167,3 +199,13 @@ class Explore extends Component {
     }
 }
 export default Explore;
+
+// Push the markers to the database
+// Code to push saved markers from db to state on start
+// Job that runs on the server:
+// Like button with onClick handler that calls the server
+//  Look at markers
+//  Look their likes
+//  Delete ones with no likes within 48 hours
+
+// 
