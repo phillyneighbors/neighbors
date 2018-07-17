@@ -19,10 +19,8 @@ class weatherWidget extends Component {
             maxTemp: "",
         }
     }
-
-    
-
-        async componentDidMount(props) {
+ 
+    async componentDidMount(props) {
 
             const response = await fetch("https://api.openweathermap.org/data/2.5/weather?q=Philadelphia&units=imperial&appid=22e0e62f9c400a6d4c6299d5a811c050")
             const json = await response.json() 
@@ -43,13 +41,13 @@ class weatherWidget extends Component {
 
     render() {
 
+    // utilizing moment to display current and following days
 
         let today = moment().format("ddd, MMM Do");
         let tomorrow = new moment().add(1, 'day').format("ddd, MMM Do");
         let followingDay = new moment().add(2, 'day').format("ddd, MMM Do");
 
-
-
+    //  functions for which icons display depending on weather variables
 
         let displayTempImage = "";
 
@@ -71,7 +69,6 @@ class weatherWidget extends Component {
                 displayHumidityImage = humidityImage
             }
         
-
 
 
         return (
