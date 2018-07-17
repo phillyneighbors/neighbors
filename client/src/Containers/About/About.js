@@ -1,11 +1,28 @@
 import React, { Component } from 'react';
 import './About.css';
 import classes from './About.css';
+import Joe from './assets/images/joe.png';
+import Mike from './assets/images/mike.png';
+import Sam from './assets/images/sam.png'
+
+
 
 
 class About extends Component {
 
     render() {
+
+        let displayMike = "";
+        let displaySam = "";
+        let displayJoe = "";
+
+
+        displayMike = Mike;
+        displaySam = Sam;
+        displayJoe = Joe;
+
+
+
         return (
 
             <div className="container">
@@ -22,14 +39,17 @@ class About extends Component {
                     </div>
                 </div>
 
+                <br />
+                <br />
+
                 <div className="row">
                     <div className="col-sm">
                     <div className="card-deck">
                         <div className="card">
                             <div className="card-body">
-                                <h5 className="card-title">Card title 1</h5>
-                                <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+                                <h5 className="card-title">Sam Hughes</h5>
+                                <img src={displaySam} alt="sam" />
+
                             </div>
                         </div>
                     </div>
@@ -38,9 +58,11 @@ class About extends Component {
                     <div className="card-deck">
                         <div className="card">
                             <div className="card-body">
-                                <h5 className="card-title">Card title 2</h5>
-                                <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+                                <h5 className="card-title">Joe Vega</h5>
+                                
+                                <img src={displayJoe} alt="joe" />
+                                
+
                             </div>
                         </div>
                     </div>
@@ -49,16 +71,19 @@ class About extends Component {
                     <div className="card-deck">
                         <div className="card">
                             <div className="card-body">
-                                <h5 className="card-title">Card title 3</h5>
-                                <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+                                <h5 className="card-title">Mike McVeigh</h5>
+                                <img src={displayMike} alt="mike" />
+
                             </div>
                         </div>
                     </div>
                     </div>
                 </div>
+                </div>
             </div>
-            </div>
+            
+
+            
             
         );
     }
