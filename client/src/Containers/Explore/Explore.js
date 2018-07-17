@@ -29,10 +29,6 @@ class Explore extends Component {
         this.getGeoLocation = this.getGeoLocation.bind(this);
     }
 
-
-    
-
-
     async componentDidMount() {
 
         console.log('Mounted @ ' + Date.now());
@@ -84,7 +80,6 @@ class Explore extends Component {
             <div className="container-fluid">
                 
                     <WeatherWidget />
-
                     
                 {this.state.locationLoaded ?
                     <GoogleMapsWrapper
