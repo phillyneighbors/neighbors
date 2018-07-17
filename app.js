@@ -12,6 +12,7 @@ var mongoose = require('mongoose')
 var db = require('./models');
 var app = express();
 // socket setup
+var controllers = require('./controllers/')
 var io = socket_io();
 app.io = io;
 
@@ -24,6 +25,7 @@ io.on('connection', socket => {
   });
   socket.on('SEND_MESSAGE', (data) => {
     console.log(data)
+    // controllers.Message.post
     socket.broadcast.to(data.room).emit('RECEIVE_MESSAGE', data);
   })
 })
