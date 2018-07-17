@@ -13,12 +13,14 @@ class ChatBox extends Component {
         messages: []
   }
     // what does this need to be set to for production
-
+  componentWillReceiveProps(nextProps) {
+    this.setState({messages: nextProps.messages})
+  }
   componentDidUpdate() {
     this.scrollToBottom();
   }
   componentDidMount(){
-    // focus on message input
+    // focus on/ message input
     this.textInput.focus();
     this.scrollToBottom();
     // event handler for enter key presses
@@ -82,6 +84,7 @@ class ChatBox extends Component {
     }
     const displayMessage = {text: this.state.message, user: this.props.user, date: date};
     updatedChatHistory.push(displayMessage)
+    console.log(updatedChatHistory)
     // post to db
     this.socket.emit('SEND_MESSAGE', newMessage, () => {
       console.log("SETTING STATE");
@@ -96,8 +99,8 @@ class ChatBox extends Component {
 
   render() {
     let messages = []
-    if (this.props.messages) {
-      messages = this.props.messages.map((message, i) => {
+    if (this.state.messages) {
+      messages = this.state.messages.map((message, i) => {
         console.log(message)
         let messageClass = (message.user === this.props.user) ?
           classes.Message : [classes.Message, classes.MessageRecv].join(' ');
