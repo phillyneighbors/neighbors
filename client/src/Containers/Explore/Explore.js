@@ -171,17 +171,6 @@ class Explore extends Component {
                         />
                     </form>
                 </Modal>
-                <div className={classes.weatherWidget}>
-                    <div className="panel panel-default">
-                        <div className="panel-heading">
-                            <h3 className="panel-title">Explore the Current Weather</h3>
-                        </div>
-                        <div className="panel-body">
-                            <p> Temperature: {this.state.temp} </p>
-                            <p> Humidity: {this.state.humidity} </p>
-                        </div>
-                    </div>
-                </div>
                 <div>
                     <Button clicked={this.openModal}>Custom Marker</Button>
                 </div>
