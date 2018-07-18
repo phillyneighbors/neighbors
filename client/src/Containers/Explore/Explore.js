@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
-import classes from './Explore.css';
+import './Explore.css'
 import Button from '../../Components/UI/Button/Button'
 import Modal from '../../Components/UI/Modal/Modal'
 import TextInput from '../../Components/UI/TextInput/TextInput'
+import classes from './Explore.css'
 import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng,
 } from 'react-places-autocomplete';
-import WeatherWidget from '../../Components/Weather/Weather'
+import WeatherWidget from '../../Components/Weather/Weather';
+import arrow from './assets/images/arrow.png';
+
 
 const GoogleMapsWrapper = withScriptjs(withGoogleMap(props => {
     const { onMapMounted, ...otherProps } = props;
@@ -19,6 +22,7 @@ const GoogleMapsWrapper = withScriptjs(withGoogleMap(props => {
 
 class Explore extends Component {
 
+    
     constructor(props) {
         super(props)
         this.state = {
@@ -140,9 +144,15 @@ class Explore extends Component {
 
 
     render() {
+
+        let displayArrowImage = "";
+        displayArrowImage = arrow;
+
         return (
-            <div className="container-fluid">
-                <Modal show={this.state.modal} clicked={this.openModal} closeModal={this.closeModal}>
+
+            <div className="container-fluid explore">
+
+                <Modal show={this.state.modal} clicked={this.openModal} closeModal={this.closeModal} >
                     <Button clicked={this.closeModal}>Cancel</Button>
                     <Button type="submit" clicked={this.createMarker}>Create Marker</Button>
                     <br />
@@ -171,10 +181,23 @@ class Explore extends Component {
                         />
                     </form>
                 </Modal>
-                <div>
-                    <Button clicked={this.openModal}>Custom Marker</Button>
+                
+                <div className={classes.ExploreTitle}> explore the local weather
+                < br />
+                < br />
+                        <img src={displayArrowImage} alt="arrowImage" />
                 </div>
                     <WeatherWidget />
+                    <div className={classes.ExploreTitle}> explore the city & add custom pins
+                < br />
+                    <img src={displayArrowImage} alt="arrowImage" />
+                    <div>
+                    <Button clicked={this.openModal}>add pin</Button>
+                </div>
+                </div>
+
+
+
                     
                 {this.state.locationLoaded ?
                     <GoogleMapsWrapper
@@ -203,8 +226,9 @@ class Explore extends Component {
                         <Marker position={this.state.markerPosition} />
                     </GoogleMapsWrapper> : null
                 }
-
-                
+                        <div className={classes.ExploreTitle}>
+                                        thanks for exploring, Philly neighbors!
+                        </div>
             </div>
             
         )

@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import moment from 'moment';
 import './Weather.css';
 import classes from './Weather.css';
-import sunImage from './assets/images/sun.png'
-import rainyImage from './assets/images/rainy-cloud.png'
-import coldImage from './assets/images/009-cold.png'
-import superHotImage from './assets/images/005-weather.png'
-import humidityImage from './assets/images/001-humidity-1.png'
+import sunImage from './assets/images/sun.png';
+import rainyImage from './assets/images/rainy-cloud.png';
+import coldImage from './assets/images/009-cold.png';
+import superHotImage from './assets/images/005-weather.png';
+import humidityImage from './assets/images/001-humidity-1.png';
+import descriptionImage from './assets/images/notepad.png'
+
 
 class weatherWidget extends Component {
 
@@ -17,18 +19,22 @@ class weatherWidget extends Component {
             todaysHumidity:"" ,
             todaysMinTemp: "",
             todaysMaxTemp: "",
+            todaysDescription: "",
 
             tomorrowTemp: "",
             tomorrowHumidity: "",
             tomorrowMinTemp: "",
             tomorrowMaxTemp: "",
             tomorrowDt: "",
+            tomorrowDescription: "",
+
 
             followingTemp: "",
             followingHumidity: "",
             followingMinTemp: "",
             followingMaxTemp: "",
-            followingDt: ""
+            followingDt: "",
+            followingDescription: ""
             
         }
     }
@@ -39,6 +45,7 @@ class weatherWidget extends Component {
             const json = await response.json() 
     
             console.log("weather object" + json)
+            console.log(json.list[1].weather[0].description)
             
             ;
 
@@ -49,22 +56,27 @@ class weatherWidget extends Component {
                 todaysMinTemp: json.list[1].main.temp_min,
                 todaysMaxTemp: json.list[1].main.temp_max,
                 todaysDt: json.list[1].dt,
+                todaysDescription: json.list[1].weather[0].description,
 
                 tomorrowTemp: json.list[7].main.temp,
                 tomorrowHumidity: json.list[7].main.humidity,
                 tomorrowMinTemp: json.list[7].main.temp_min,
                 tomorrowMaxTemp: json.list[7].main.temp_max,
                 tomorrowDt: json.list[7].dt,
+                tomorrowDescription: json.list[7].weather[0].description,
 
                 followingTemp: json.list[14].main.temp,
                 followingHumidity: json.list[14].main.humidity,
                 followingMinTemp: json.list[14].main.temp_min,
                 followingMaxTemp: json.list[14].main.temp_max,
-                followingDt: json.list[14].dt
-                
+                followingDt: json.list[14].dt,
+                followingDescription: json.list[14].weather[0].description
+
             })
+
         }
 
+    
 
     render() {
 
@@ -111,7 +123,10 @@ class weatherWidget extends Component {
                 displayHumidityImage = humidityImage
             }
         
-
+        let displayDescriptionImage = "";
+            
+            displayDescriptionImage = descriptionImage;
+    
 
         return (
 
@@ -122,16 +137,18 @@ class weatherWidget extends Component {
                         <div className={classes.heading}>
                             {today}
                         </div>
-                        <table className="content">  
+                        <table className={classes.Content}>
+                                <th><img src={displayDescriptionImage} alt="descImage" /> </th>
+                                <td>{this.state.todaysDescription} </td>
                             <tr />
                                 <th><img src={displayTodaysTempImage} alt="tempImage" /></th>
                                 <td>{this.state.todaysTemp} &#x02109; </td>
                             <tr />
-                                <th><img src={displayMaxTempImage} alt="maxTempImage" /></th>
-                                <td>{this.state.todaysMaxTemp} &#x02109;   </td>
+                                {/* <th><img src={displayMaxTempImage} alt="maxTempImage" /></th>
+                                <td>{this.state.todaysMaxTemp} &#x02109;   </td> */}
                             <tr />
                                 <th><img src={displayHumidityImage} alt="humidityImage" /></th>
-                                    <td>{this.state.todaysHumidity}  </td>
+                                    <td>{this.state.todaysHumidity}% humid  </td>
                                 <tr />
                         </table>            
                      </div>
@@ -142,16 +159,20 @@ class weatherWidget extends Component {
                         <div className={classes.heading}>
                             {tomorrow}
                         </div>
-                        <table className="content">  
+                        <table className={classes.Content}>
+
+                                <th><img src={displayDescriptionImage} alt="descImage" /> </th>
+                                <td>{this.state.tomorrowDescription} </td>
+
                             <tr />
                                 <th><img src={displayTomorrowTempImage} alt="tempImage" /></th>
                                 <td>{this.state.tomorrowTemp} &#x02109; </td>
                             <tr />
-                                <th><img src={displayMaxTempImage} alt="maxTempImage" /></th>
-                                <td>{this.state.tomorrowMaxTemp} &#x02109;   </td>
+                                {/* <th><img src={displayMaxTempImage} alt="maxTempImage" /></th>
+                                <td>{this.state.tomorrowMaxTemp} &#x02109;   </td> */}
                             <tr />
                                 <th><img src={displayHumidityImage} alt="humidityImage" /></th>
-                                    <td>{this.state.tomorrowHumidity}  </td>
+                                    <td>{this.state.tomorrowHumidity}% humid </td>
                                 <tr />
                         </table>            
                      </div>
@@ -162,16 +183,19 @@ class weatherWidget extends Component {
                         <div className={classes.heading}>
                             {followingDay}
                         </div>
-                        <table className="content">  
+                        <table className={classes.Content}>
+
+                                <th><img src={displayDescriptionImage} alt="descImage" /> </th>
+                                <td>{this.state.followingDescription} </td>
                             <tr />
                                 <th><img src={displayFollowingTempImage} alt="tempImage" /></th>
                                 <td>{this.state.followingTemp} &#x02109; </td>
                             <tr />
-                                <th><img src={displayMaxTempImage} alt="maxTempImage" /></th>
-                                <td>{this.state.followingMaxTemp} &#x02109;   </td>
+                                {/* <th><img src={displayMaxTempImage} alt="maxTempImage" /></th>
+                                <td>{this.state.followingMaxTemp} &#x02109;   </td> */}
                             <tr />
                                 <th><img src={displayHumidityImage} alt="humidityImage" /></th>
-                                    <td>{this.state.followingumidity}  </td>
+                                    <td>{this.state.followingHumidity}% humid  </td>
                                 <tr />
                         </table>            
                      </div>

@@ -4,6 +4,8 @@ import Aux from '../../HOC/Auxil'
 import Backdrop from '../Backdrop/Backdrop'
 
 const modal = (props) => {
+
+  console.log( classes );
   return (
   <Aux>
     <Backdrop
@@ -11,7 +13,7 @@ const modal = (props) => {
       clicked={props.closeModal}
     />
     <div
-      className={classes.Modal}
+      className={ classes.Modal + ' modalbox'}
       style={{
         transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
         opacity: props.show ? '1' : '0'

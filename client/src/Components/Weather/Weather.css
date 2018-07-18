@@ -3,8 +3,8 @@
     grid-template-columns: 1fr 1fr 1fr ;
     grid-gap: 20px;
     -ms-grid-row-align: center;
-    margin-top: 150px;
-    margin-bottom: 150px;
+    margin-top: 50px;
+    margin-bottom: 45px;
     margin-right: 20px;
     margin-left: 20px;
     width: 100%;
@@ -12,7 +12,7 @@
     font-size: 20px;
     border-radius: 20px;
     -webkit-animation: shadow-drop-2-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	animation: shadow-drop-2-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	  animation: shadow-drop-2-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 .heading {
@@ -20,7 +20,7 @@
     text-align: center;
 
         -webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
-        animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+                animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
 
  
 }
@@ -35,13 +35,21 @@
 }
 
 .weatherWidget td {
-    font-size: 25px
+    font-size: 25px;
+    text-align: center;
+    align-content: center
 }
 
 
-.content {
-    font-size: 35px
+.Description {
+    font-size: 30px;
+    text-align: center;
+
+    font-style: italic;
+
 }
+
+
 
 .p {
     size: 100px
