@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
-import './Explore.css';
-import classes from './Explore.css';
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
+import './Explore.css'
+import Button from '../../Components/UI/Button/Button'
+import Modal from '../../Components/UI/Modal/Modal'
+import TextInput from '../../Components/UI/TextInput/TextInput'
+import classes from './Explore.css'
+import PlacesAutocomplete, {
+    geocodeByAddress,
+    getLatLng,
+} from 'react-places-autocomplete';
+import WeatherWidget from '../../Components/Weather/Weather';
+import arrow from './assets/images/arrow.png';
+
 
 const GoogleMapsWrapper = withScriptjs(withGoogleMap(props => {
     const { onMapMounted, ...otherProps } = props;
@@ -12,39 +22,36 @@ const GoogleMapsWrapper = withScriptjs(withGoogleMap(props => {
 
 class Explore extends Component {
 
+    
     constructor(props) {
         super(props)
         this.state = {
             markers: [],
+            modal: false,
             isMarkerShown: false,
             markerPosition: null,
             locationLoaded: false,
             userLocation: {
                 lat: 32,
                 lng: 32
-            }
+            },
+            newMarkerAddress: null,
+            isOpen: false,
+            markerName: null,
+            markerType: null,
+            openMarkerKeys: new Set()
         };
+
         this.getGeoLocation = this.getGeoLocation.bind(this);
     }
 
-
     async componentDidMount() {
-        const response = await fetch("https://api.openweathermap.org/data/2.5/weather?q=Philadelphia&units=imperial&appid=22e0e62f9c400a6d4c6299d5a811c050")
-        const json = await response.json() 
-        console.log(json);
-    
-        this.setState({
-          temp: json.main.temp,
-          humidity: json.main.humidity,
-          minTemp: json.main.temp_min,
-          maxTemp: json.main.temp_max,
-
-        })
 
         console.log('Mounted @ ' + Date.now());
         this.getGeoLocation();
         console.log(this.state);
       }
+  
 
     getGeoLocation = () => {
         console.log("1")
@@ -68,58 +75,174 @@ class Explore extends Component {
     }
 
     onMapClick = (event) => {
+        console.log(event.Ha.view.google.maps);
         this.setState({
             markerPosition: event.latLng,
             isMarkerShown: true
         })
     }
 
-    mapRef = null;
+    openModal = () => {
+        console.log('Opening modal')
+        this.setState({
+            modal: true
+        })
+    }
 
-    handleMapMounted = (c) => {
-        if (!c || this.mapRef) return;
-        this.mapRef = c;
-        console.log('Ref set @ ' + Date.now());
-    };
+    closeModal = () => {
+        console.log('Closing modal')
+        this.setState({
+            modal: false
+        })
+    }
+
+    changeHandler = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value,
+        })
+    }
+
+    createMarker = () => {
+        console.log('Marker created @ ' + Date.now());
+        geocodeByAddress(this.state.newMarkerAddress)
+        .then(results => {
+            console.log('RESULTS:', results);
+            return getLatLng(results[0])
+        })
+        .then(latLng => {
+            const marker = {
+                key: latLng.lat + ',' + latLng.lng,
+                latLng,
+                markerName: this.state.markerName,
+                markerType: this.state.markerType
+            };  
+            this.setState(state => ({
+                newMarkerAddress: "",
+                markers: state.markers.concat(marker)
+            }))
+            // save marker to server HERE - postMarker(marker)
+        })
+        .then(() => { 
+            console.log(this.state);
+            this.closeModal(); 
+        })
+        .catch(error => console.error('Error', error));
+    }
+
+    onMarkerClick = (marker) => {
+        const key = marker.key;
+        this.setState(state => {
+            const openMarkerKeys = state.openMarkerKeys;
+
+            if (openMarkerKeys.has(key)) openMarkerKeys.delete(key)
+            else openMarkerKeys.add(key)
+
+            return { openMarkerKeys };
+        })
+    }
+
+
 
     render() {
+
+        let displayArrowImage = "";
+        displayArrowImage = arrow;
+
         return (
-            <div className="container-fluid">
-                <div className={classes.weatherWidget}>
-                    <div className="panel panel-default">
-                        <div className="panel-heading">
-                            <h3 className="panel-title">Explore the Current Weather</h3>
-                        </div>
-                        <div className="panel-body">
-                            <p> Temp: {this.state.temp} </p>
-                            <p> Humidity: {this.state.humidity} </p>
-                            <p> Today's High: {this.state.maxTemp} </p>
-                            <p> Today's Low: {this.state.minTemp} </p>
-                        </div>
 
-                        
-                    <h3 className="map-title">       
-                        Explore the City below!         
-                    </h3>
+            <div className="container-fluid explore">
 
-                    </div>
+                <Modal show={this.state.modal} clicked={this.openModal} closeModal={this.closeModal} >
+                    <Button clicked={this.closeModal}>Cancel</Button>
+                    <Button type="submit" clicked={this.createMarker}>Create Marker</Button>
+                    <br />
+                    
+                    <form>
+                    Enter an address!
+                        <TextInput
+                            type="text"
+                            placeholder="Enter event address"
+                            name="newMarkerAddress"
+                            changeHandler={this.changeHandler}
+                        />
+                    Name:
+                        <TextInput
+                            type="text"
+                            placeholder="Name"
+                            name="markerName"
+                            changeHandler={this.changeHandler}
+                        />
+                    Type:
+                        <TextInput
+                            type="text"
+                            placeholder="Type"
+                            name="markerType"
+                            changeHandler={this.changeHandler}
+                        />
+                    </form>
+                </Modal>
+                
+                <div className={classes.ExploreTitle}> explore the local weather
+                < br />
+                < br />
+                        <img src={displayArrowImage} alt="arrowImage" />
                 </div>
+                    <WeatherWidget />
+                    <div className={classes.ExploreTitle}> explore the city & add custom pins
+                < br />
+                    <img src={displayArrowImage} alt="arrowImage" />
+                    <div>
+                    <Button clicked={this.openModal}>add pin</Button>
+                </div>
+                </div>
+
+
+
+                    
                 {this.state.locationLoaded ?
                     <GoogleMapsWrapper
-                        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXYH0-ocvoZnzu1HrgZaBJQ1apvBclUt0"
+                        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXYH0-ocvoZnzu1HrgZaBJQ1apvBclUt0&libraries=places"
                         loadingElement={<div style={{ height: `100%` }} />}
                         containerElement={<div style={{ height: `300px`, width: `100%`, marginBottom: `200px` }} />}
                         mapElement={<div style={{ height: `100%` }} />}
                         defaultZoom={15}
-                        // defaultCenter={{ lat: 25.0391667, lng: 121.525 }}
                         defaultCenter={this.state.userLocation}
                         onMapMounted={this.handleMapMounted}
                         onClick={this.onMapClick}>
+                        {this.state.markers.map((marker) => {
+                            return (
+                                <Marker key={marker.key} position={marker.latLng} name={marker.markerName} type={marker.markerType} onClick={() => this.onMarkerClick(marker)}>
+                                {this.state.openMarkerKeys.has(marker.key) ? (
+                                    <InfoWindow>
+                                        <div>
+                                            <p>Name: {marker.markerName}</p>
+                                            <p>Type: {marker.markerType}</p>
+                                        </div>
+                                    </InfoWindow>
+                                ) : null}
+                                </Marker>
+                            )
+                        })}
                         <Marker position={this.state.markerPosition} />
                     </GoogleMapsWrapper> : null
                 }
+                        <div className={classes.ExploreTitle}>
+                                        thanks for exploring, Philly neighbors!
+                        </div>
             </div>
+            
         )
     }
 }
 export default Explore;
+
+
+// ToDo:
+// Push the markers to the database
+// Code to push saved markers from db to state on start
+// Job that runs on the server:
+// Like button with onClick handler that calls the server
+//  Look at markers
+//  Look their likes
+//  Delete markers that haven't been "liked" within the last 48 hours
+
