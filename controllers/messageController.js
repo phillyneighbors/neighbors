@@ -14,10 +14,10 @@ module.exports = {
     });
   },
 
-  post: (message, location) => {
-    console.log(message)
+  post: data => {
     return new Promise((resolve, reject) => {
-      db.Message.create({text: message, location: location})
+      console.log(data)
+      db.Message.create({text: data.text, location: data.room, user: data.userId, date: data.date})
       .then((message) => {
         console.log("posted from backend!")
         resolve(message)

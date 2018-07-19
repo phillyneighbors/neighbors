@@ -1,9 +1,23 @@
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.ObjectId;
+const Location = require('./Location')
+
 const Message = new mongoose.Schema({
   text: {type: String, required: true},
-  user: {type: ObjectId, ref: 'User'},
-  location: {type: ObjectId, ref: 'Location'},
+  user: {type: String},
+  location: {type: String},
+  date: {type: String}
+})
+
+Message.post('save', doc => {
+  Location.find({'neighborhood': doc.location}, (err, res) => {
+    if (err) {
+      return console.log(err)
+    }
+    console.log(res)
+    res.messages.push(doc)
+    res.save()
+  })
 })
 
 module.exports = mongoose.model('Message', Message);

@@ -74,12 +74,13 @@ class ChatBox extends Component {
       updatedChatHistory = [...this.state.messages];
     }
     const date = moment().format("ddd, MMM Do hh:mm a");
+    console.log(this.props.locationId)
     const newMessage = {
       room: this.props.neighborhood,
       text: this.state.message,
       UserId: this.props.userId,
       user: this.props.user,
-      LocationId: this.props.locationId,
+      locationId: this.props.locationId,
       date: date,
     }
     const displayMessage = {text: this.state.message, user: this.props.user, date: date};
