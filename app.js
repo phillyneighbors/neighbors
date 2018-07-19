@@ -26,7 +26,10 @@ io.on('connection', socket => {
   socket.on('SEND_MESSAGE', (data) => {
     console.log(data)
     controllers.message.post(data)
-    socket.broadcast.to(data.room).emit('RECEIVE_MESSAGE', data);
+    .then(res => {
+      socket.broadcast.to(data.room).emit('RECEIVE_MESSAGE', data);
+    })
+    .catch(err => console.log(err))
   })
 })
 

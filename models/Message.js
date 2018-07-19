@@ -10,7 +10,7 @@ const Message = new mongoose.Schema({
 })
 
 Message.post('save', doc => {
-  Location.find({'neighborhood': doc.location}, (err, res) => {
+  Location.findOne({'neighborhood': doc.location}, (err, res) => {
     if (err) {
       return console.log(err)
     }

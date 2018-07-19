@@ -1,6 +1,5 @@
 import React from 'react';
-import './Navigation.css';
-import classes from './Navigation.css';
+import classes from './navigation.css';
 import image from './logo1.png';
 import { Link } from 'react-router-dom';
 

@@ -39,9 +39,9 @@ class ChatBox extends Component {
       this.socket.emit('JOIN', this.props.neighborhood);
     })
     this.socket.on('RECEIVE_MESSAGE', (data) => {
+      console.log(data)
       console.log("received message ")
       let newMessages = [...this.state.messages, data]
-      console.log('Setting state line 40')
       this.setState({
         messages: newMessages
       })
