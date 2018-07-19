@@ -6,7 +6,7 @@ import sunImage from './assets/images/sun.png';
 import rainyImage from './assets/images/rainy-cloud.png';
 import coldImage from './assets/images/009-cold.png';
 import superHotImage from './assets/images/005-weather.png';
-import humidityImage from './assets/images/001-humidity-1.png';
+import humidityImage from './assets/images/002-humidity.png';
 import descriptionImage from './assets/images/notepad.png'
 
 
@@ -119,7 +119,7 @@ class weatherWidget extends Component {
 
         let displayHumidityImage = "";
 
-            if (this.state.todaysHumidity > 45) {
+            if (this.state.todaysHumidity > 15) {
                 displayHumidityImage = humidityImage
             }
         
