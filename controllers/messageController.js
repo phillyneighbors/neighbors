@@ -1,10 +1,10 @@
 const db = require('../models')
 
 module.exports = {
-  get: locationId => {
+  get: params => {
     return new Promise((resolve, reject) => {
       console.log("in message controller")
-      db.Message.findAll({'$where': {location: locationId}})
+      db.Message.find(params)
       .then(messages => {
         resolve(messages)
       })
@@ -16,10 +16,12 @@ module.exports = {
 
   post: data => {
     return new Promise((resolve, reject) => {
-      console.log(data)
-      db.Message.create({text: data.text, location: data.room, user: data.userId, date: data.date})
+      console.log(data.user)
+      console.log(data.room)
+      db.Message.create({text: data.text, location: data.room, user: data.user, date: data.date})
       .then((message) => {
         console.log("posted from backend!")
+        console.log("MESSAGE: ", message)
         resolve(message)
       })
       .catch((err) => {

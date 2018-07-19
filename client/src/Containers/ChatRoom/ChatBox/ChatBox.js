@@ -5,6 +5,7 @@ import Button from '../../../Components/UI/Button/Button';
 import Avatar from '../../../Components/Avatar/Avatar';
 import image from './Conversation-icon.png';
 import WindowHeader from '../../../Components/UI/WindowHeader/WindowHeader';
+import API from '../../../utils/apiRequests';
 import io from 'socket.io-client';
 class ChatBox extends Component {
   state = {
@@ -14,12 +15,19 @@ class ChatBox extends Component {
   }
     // what does this need to be set to for production
   componentWillReceiveProps(nextProps) {
-    this.setState({messages: nextProps.messages})
+    // this.setState({messages: nextProps.messages})
   }
   componentDidUpdate() {
     this.scrollToBottom();
   }
   componentDidMount(){
+    API.getMessages(this.props.neighborhood)
+    .then(res => {
+      console.log(res)
+      this.setState({
+        messages: res,
+      })
+    })
     // focus on/ message input
     this.textInput.focus();
     this.scrollToBottom();

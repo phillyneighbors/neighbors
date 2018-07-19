@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 export default {
-  getMessages: (locationId) => {
-    console.log("getting messages for: ", locationId)
+  getMessages: (neighborhood) => {
+    console.log("getting messages for: ", neighborhood)
     return new Promise((resolve, reject) => {
-      axios.get('/api/message', {locationId,})
+      axios.get(`/api/message/?location=${neighborhood}`)
       .then((response) => {
         console.log("messages: ",response);
         resolve(response.data.results)
